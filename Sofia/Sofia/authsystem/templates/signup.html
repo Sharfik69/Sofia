@@ -1,0 +1,21 @@
+{% extends "user_page/wrapper.html" %}
+
+{% block signup %}
+
+ <form actio="/auth/registration" method="POST">
+    <form id="login" method="POST" action="/auth/login/">    
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" name="log" id="log" value="Зарегестрироваться">     
+        <br><br>    
+    </form>  
+    
+</form>
+
+{% if status == 'ERROR' %}
+    <h3>Произошла ошибка и мы вернули параметр как ерор</h3>
+{% else %}
+    <h3>Ошибки нет</h3>
+{% endif %}
+
+{% endblock %}

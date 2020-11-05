@@ -8,6 +8,44 @@
 
 {% block main %}
 
-    <h2>Этот элемент был взят из индекса</h2>
+    <h2>Контент снизу будет виден только авторизированному пользователю</h2>
+    <h2>Текущий пользователь: {{username}} </h2>
+    
+    {% if username %}
+        <form action="/auth/logout">
+            <input type="submit" value="Выйти">
+        </form>
+
+        {{param1}} <br>
+        {{param2}} <br>
+        {{param3}} <br>
+        <ol>
+            {% for num in numbers %}
+                <li>{{num}}</li>
+            {% endfor %}
+        </ol>
+
+        <ol>
+            {% for kit in kitty %}
+                <li>Димас обычно говорит: {{kit.Dimas}}</li>
+                <li>Однако {{kit.Iriska}}</li>
+            {% endfor %}
+        </ol>
+
+        {% if status == 'ERROR' %}
+            <h3>Произошла ошибка и мы вернули параметр как ерор</h3>
+        {% else %}
+            <h3>Ошибки нет</h3>
+        {% endif %}
+    {% else %}
+        <form action="/auth/login">
+            <input type="submit" value="Войти">
+        </form>
+        <form action="/auth/registration">
+            <input type="submit" value="Зарегестрироваться">
+        </form>
+    {% endif %}
+
+
 
 {% endblock %} 

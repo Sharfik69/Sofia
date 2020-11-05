@@ -1,0 +1,28 @@
+{% extends "user_page/wrapper.html" %}
+
+{% block login %}
+
+<h2>Вход в систему</h2><br>    
+<div class="login">    
+    <form id="login" method="POST" action="/auth/login/">    
+        {% csrf_token %}
+        <label><b>Имя пользователя</b>    
+        </label>    
+        <input type="text" name="Uname" id="Uname" placeholder="Username">    
+        <br><br>    
+        <label><b>Пароль</b>    
+        </label>    
+        <input type="Password" name="Pass" id="Pass" placeholder="Password">    
+        <br><br>    
+        <input type="submit" name="log" id="log" value="Войти">       
+        <br><br>    
+    </form>     
+</div> 
+
+{% if status == 'ERROR' %}
+    <h3>Произошла ошибка и мы вернули параметр как ерор</h3>
+{% else %}
+    <h3>Ошибки нет</h3>
+{% endif %}
+
+{% endblock %}
