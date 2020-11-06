@@ -1,16 +1,48 @@
 {% extends "user_page/wrapper.html" %}
 
 {% block signup %}
-
- <form actio="/auth/registration" method="POST">
-    <form id="login" method="POST" action="/auth/login/">    
+<script>
+    var d = false;
+    $( document ).ready(function() {
+        $(".employer").show();
+        $(".company").hide();
+        d = false;
+    });
+    function change() {
+        if (d) {
+            $(".employer").show();
+            $(".company").hide();
+            d = false;
+            $("#inform_about_layer").text('Я работодатель');
+        }
+        else {
+            $(".employer").hide();
+            $(".company").show();
+            $("#inform_about_layer").text('Я ищу работу');
+            d = true;
+        }
+    }
+</script>
+<button id = "Поменять тип регистрации" onclick="change()">Поменять тип регистрации</button>
+<p id = 'inform_about_layer'>Я работодатель</p>
+<div class="employer">
+    <form id="login" method="POST" action="/auth/registration/">    
         {% csrf_token %}
-        {{ form }}
+        {{ form_for_company.as_ul }}
+        <input type="hidden" name="whois" id="whois" value="2"> 
         <input type="submit" name="log" id="log" value="Зарегестрироваться">     
         <br><br>    
     </form>  
-    
-</form>
+</div>
+<div class="company">
+    <form id="login" method="POST" action="/auth/registration/">    
+        {% csrf_token %}
+        {{ form_for_candidate.as_ul }}
+        <input type="hidden" name="whois" id="whois" value="1"> 
+        <input type="submit" name="log" id="log" value="Зарегестрироваться">     
+        <br><br>    
+    </form>    
+</div>
 
 {% if status == 'ERROR' %}
     <h3>Произошла ошибка и мы вернули параметр как ерор</h3>
