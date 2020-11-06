@@ -1,0 +1,19 @@
+{% extends "user_page/wrapper.html" %}
+
+{% load static %}
+
+{% block extrahead %}
+    <script src={% static "/js/interview-functions.js" %}></script>
+{% endblock %}
+
+{% block interview %}
+
+    <div class="new_interview">
+        <form>
+
+        </form>
+        <button id="interview-add_question">Добавить вопрос</button>
+    </div>
+
+
+{% endblock %} 
