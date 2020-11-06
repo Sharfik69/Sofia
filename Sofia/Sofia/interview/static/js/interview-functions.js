@@ -26,14 +26,10 @@ function addQuestion(name = "", tags = []) {
 
 document.addEventListener("DOMContentLoaded", () => {
     var btnAddQuestion = document.getElementById("interview-add_question");
-    
-
     btnAddQuestion.onclick = () => {
         addQuestion();
     }
-
     var btnSaveForm = document.getElementById('interview-save_question');
-
     btnSaveForm.onclick = () => {
         var fd = new FormData(interviewQuestions);
 

@@ -11,12 +11,12 @@
 
     <div class="new_interview">
         <form name="interviewQuestions" id = "interviewQuestions">
-
+            <input name="idInterview" value="{{idInterview}}" hidden>
+            {% for item in questions %}
+            
+            {% endfor %}
         </form>
-
         <button id="interview-add_question" class='center-input'>Добавить вопрос</button>
-
-
         <button id="interview-save_question" class='center-input'>Сохранить</button>
     </div>
 
