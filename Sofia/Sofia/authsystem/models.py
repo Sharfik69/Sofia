@@ -1,15 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Tag(models.Model):
-    id = models.AutoField(
-        primary_key=True
-    )
-    name = models.CharField(
-        max_length=255,
-        verbose_name='Название'
-    )
-
 class Candidate(User):
     phone = models.CharField(
         verbose_name='Телефон',
@@ -21,7 +12,6 @@ class Candidate(User):
     description = models.TextField(
         verbose_name='О себе'
     )
-    tags = models.ManyToManyField(Tag)
     cv = models.FileField(
         verbose_name='Резюме'
     )

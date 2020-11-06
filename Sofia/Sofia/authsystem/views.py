@@ -4,7 +4,7 @@ from django.core import serializers
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.template.context_processors import csrf
-
+#Это я тсчу кое что
 def auth_login(request):
     if request.POST:
         username = request.POST.get('Uname', '')
