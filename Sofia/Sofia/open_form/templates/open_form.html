@@ -1,0 +1,40 @@
+{% extends "user_page/wrapper.html" %}
+
+{% load static %}
+
+{% block extrahead %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src = {% static "/js/open_form-index.js" %}></script>
+    
+
+{% endblock %}
+
+{% block title %}
+
+    Страница открытой формы
+
+{% endblock %} 
+
+{% block main %}
+
+<div class = "description">
+    {{description}}
+</div>
+
+<div class = "answer">
+    
+    <form id = "openFormAns" method = "POST" action = "/open-form/write_openForm_ans/" name="myform">
+        {% csrf_token %}
+        <input type="hidden" name = "id" value = {{id}}>
+        <textarea rows = "10" cols = "60" name = "answer" placeholder="Дайте здесь развернутый ответ"> 
+
+        </textarea>
+        <input type ="file" id = "file" name = "file">
+        <input type = "button" onclick = func() value = "Отправить">
+        <!-- <input type = "submit" class = "submitBtn" name = "submitBtn" onclick=func();> -->
+    </form>
+</div>
+    
+
+
+{% endblock %} 

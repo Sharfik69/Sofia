@@ -31,7 +31,7 @@ class OpenFormAnswer(models.Model):
         verbose_name = 'Ответ на вопрос'
     )
     answer_file = models.FileField(
-        upload_to='',
+        upload_to='open_form/uploaded_imgs/',
         blank= True,
         verbose_name='Прикрепленный файл'
     )
@@ -45,4 +45,10 @@ class OpenFormAnswer(models.Model):
         Candidate,
         null = False,
         on_delete = models.CASCADE
+    )
+
+    mark = models.IntegerField(
+        verbose_name= 'Оценка',
+        blank = True,
+        null = True
     )

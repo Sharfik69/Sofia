@@ -10,6 +10,9 @@ class Tag(models.Model):
         verbose_name='Название'
     )
 
+    def __str__(self):
+        return self.name
+
 class Candidate(User):
     phone = models.CharField(
         verbose_name='Телефон',
