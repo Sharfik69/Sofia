@@ -25,6 +25,9 @@ class Candidate(User):
     cv = models.FileField(
         verbose_name='Резюме'
     )
+    class Meta:
+        verbose_name = 'Соискатель'
+        verbose_name_plural = 'Соискатели'
 
 
 class Education(models.Model):
@@ -74,5 +77,48 @@ class WorkExperience(models.Model):
         null = False,
         on_delete = models.CASCADE
     )
+
+
+class Company(User):
+    name_company = models.CharField(
+        max_length=255,
+        verbose_name='Название компании'
+    )
+    FIO_CEO = models.CharField(
+        max_length=255,
+        verbose_name='ФИО Директора'
+    )
+    Phone_CEO = models.CharField(
+        verbose_name='Телефон Директора',
+        max_length=12
+    )
+    Email_CEO = models.CharField(
+        verbose_name='Почта Директора',
+        max_length=100
+    )
+    FIO_Contact = models.CharField(
+        max_length=255,
+        verbose_name='ФИО Конатктного лица'
+    )
+    Phone_Contact = models.CharField(
+        verbose_name='Телефон Конактного лица',
+        max_length=12
+    )
+    Email_Contact = models.CharField(
+        verbose_name='Почта Конатктного лица',
+        max_length=12
+    )
+    description = models.TextField(
+        verbose_name='О компании'
+    )
+    #TODO: Сделать путь куда грущзить лого компании
+    img_logo = models.ImageField(upload_to='', blank=True, verbose_name='Логотип компании')
+    place = models.CharField(
+        verbose_name='Адрес компании',
+        max_length=300
+    )
+    class Meta:
+        verbose_name = 'Работодатель'
+        verbose_name_plural = 'Работодатели'
 
 
