@@ -1,33 +1,27 @@
 function func(){
-    let form  = document.getElementById("openFormAns");
-    let id = form.elements.id.value;
-    let answer = form.elements.answer.value;
-    let file = form.elements.file.files[0];
+    let fd = new FormData(myform);
+    let text = fd.get("answer");
+    let trimed_text = $.trim(text);
+    if (trimed_text.length == 0){
+        alert('Вы ничего не ввели в поле для ответа');
+        return;
+    }
+
+    fd.set("answer", trimed_text);
     
-    console.log(id);
-    console.log(answer);
-    console.log(file);
-
-    var fd = new FormData(myform);
-    // fd.append("id", id);
-    // fd.append("answer", answer);
-    // fd.append("file", file);
-    // fd.append('q', file);
-    fd.append('image', file);
-
-
     $.ajax({
         type: "POST",
         url: '/open-form/write_openForm_ans/',
         data: fd,
         contentType: false,
-        // contentType: "multipart/form-data",
         processData: false
     }).done(function (result) {
-        console.log(result)
+        if (result["status"] == "Ok"){
+            $(".status").append("<div>Ваш ответ успешно отправлен</div>");       
+        }else{
+            $(".status").append("<div>Что-то пошло не так</div>");
+        }
     });
-
-    
 }
 
 $(document).ready(function() {
@@ -39,12 +33,6 @@ $(document).ready(function() {
             input.value = '';
             return;
         }
-        // console.log(file);
-        // image = new Image();
-        // image.src = URL.createObjectURL(file);
-        // input.value = image;
-
-
     };
   
     let form  = document.getElementById("openFormAns");

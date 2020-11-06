@@ -5,6 +5,7 @@
 {% block extrahead %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src = {% static "/js/open_form-index.js" %}></script>
+    <link href = {% static "/css/open_form-index.css" %} type = "text/css" rel = "stylesheet">
     
 
 {% endblock %}
@@ -31,8 +32,11 @@
         </textarea>
         <input type ="file" id = "file" name = "file">
         <input type = "button" onclick = func() value = "Отправить">
-        <!-- <input type = "submit" class = "submitBtn" name = "submitBtn" onclick=func();> -->
     </form>
+</div>
+
+<div class = "status">
+
 </div>
     
 

@@ -31,7 +31,7 @@ class OpenFormAnswer(models.Model):
         verbose_name = 'Ответ на вопрос'
     )
     answer_file = models.FileField(
-        upload_to='open_form/uploaded_imgs/',
+        upload_to='media/',
         blank= True,
         verbose_name='Прикрепленный файл'
     )
