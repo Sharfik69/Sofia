@@ -3,16 +3,21 @@
 {% load static %}
 
 {% block extrahead %}
+    <link type='text/css' rel='stylesheet' href={% static "/css/interview-style.css" %}> 
     <script src={% static "/js/interview-functions.js" %}></script>
 {% endblock %}
 
 {% block interview %}
 
     <div class="new_interview">
-        <form>
+        <form name="interviewQuestions" id = "interviewQuestions">
 
         </form>
-        <button id="interview-add_question">Добавить вопрос</button>
+
+        <button id="interview-add_question" class='center-input'>Добавить вопрос</button>
+
+
+        <button id="interview-save_question" class='center-input'>Сохранить</button>
     </div>
 
 
