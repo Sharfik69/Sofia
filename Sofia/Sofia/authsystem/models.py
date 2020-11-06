@@ -25,6 +25,10 @@ class Candidate(User):
     cv = models.FileField(
         verbose_name='Резюме'
     )
+    is_company = models.BooleanField(
+        verbose_name='Это компания?',
+        default=False
+    )
     class Meta:
         verbose_name = 'Соискатель'
         verbose_name_plural = 'Соискатели'
@@ -116,6 +120,10 @@ class Company(User):
     place = models.CharField(
         verbose_name='Адрес компании',
         max_length=300
+    )
+    is_company = models.BooleanField(
+        verbose_name='Это компания?',
+        default=True
     )
     class Meta:
         verbose_name = 'Работодатель'
