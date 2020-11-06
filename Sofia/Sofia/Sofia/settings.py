@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'test_system',
     'authsystem',
-    'vacancy'
+    'vacancy',
+    'interview',
 ]
 
 MIDDLEWARE = [
