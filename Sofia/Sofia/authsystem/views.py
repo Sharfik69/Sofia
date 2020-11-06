@@ -4,7 +4,9 @@ from django.core import serializers
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.template.context_processors import csrf
-#Это я тсчу кое что
+# from .models import CompanyForm, Company, Candidate, CandidateForm
+from .models import Company, Candidate, CandidateForm
+from .forms import Company_new_form, Employer_new_form
 def auth_login(request):
     if request.POST:
         username = request.POST.get('Uname', '')
@@ -27,7 +29,14 @@ def sign_up(request):
     #Это реализация через формы джанго, там сразу есть валидация пароля и вроде че-то свое можно добавить
     d = {}
     d.update(csrf(request))
-    d['form'] = UserCreationForm()
+    whois = request.POST.get('whois', '')
+    if whois == '1':
+        d['form_for_candidate'] = Employer_new_form()
+    elif whois == '2':
+        d['form_for_company'] = Company_new_form()
+    else:
+        d['form_for_company'] = Company_new_form()
+        d['form_for_candidate'] = Employer_new_form()
     if request.POST:
         new_user_form = UserCreationForm(request.POST)
         if new_user_form.is_valid():
@@ -35,7 +44,22 @@ def sign_up(request):
             new_user = auth.authenticate(username = new_user_form.cleaned_data['username'], 
                 password = new_user_form.cleaned_data['password2'])
             auth.login(request, new_user)
+            if whois == '1':
+                print('228')
+                empl = Candidate.create(new_user, request.POST.get('phone', ''),
+                request.POST.get('addition_contacts', ''), request.POST.get('description', ''), request.POST.get('cv', ''))
+                empl.save()
+            else:
+                print('322')
+                comp = Company.create(new_user, request.POST.get('name_company', ''), request.POST.get('FIO_CEO', ''),
+                    request.POST.get('Phone_CEO', ''), request.POST.get('Email_CEO', ''), request.POST.get('FIO_Contact', ''), request.POST.get('Phone_Contact', ''), 
+                    request.POST.get('Email_Contact', ''),
+                    request.POST.get('description', ''), request.POST.get('img_logo', ''), request.POST.get('place', ''))
+                comp.save()
             return redirect('/test')
         else:
-            d['form'] = new_user_form
+            if whois == 1:
+                d['form_for_candidate'] = new_user_form
+            else:
+                d['form_for_company'] = new_user_form
     return render(request, 'signup.html', d)

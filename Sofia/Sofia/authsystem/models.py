@@ -1,19 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import ModelForm
+# from django.dispatch import receiver
+# from django.db.models.signals import post_save
 
-class Tag(models.Model):
+class Candidate(models.Model):
     id = models.AutoField(
-        primary_key=True
+        primary_key=True,
+        default=None
     )
-    name = models.CharField(
-        max_length=255,
-        verbose_name='Название'
-    )
-
-    def __str__(self):
-        return self.name
-
-class Candidate(User):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     phone = models.CharField(
         verbose_name='Телефон',
         max_length=12
@@ -24,7 +20,6 @@ class Candidate(User):
     description = models.TextField(
         verbose_name='О себе'
     )
-    tags = models.ManyToManyField(Tag)
     cv = models.FileField(
         verbose_name='Резюме'
     )
@@ -32,9 +27,22 @@ class Candidate(User):
         verbose_name='Это компания?',
         default=False
     )
+    @classmethod
+    def create(cls, user, phone, addition_contacts, description, cv):
+        employer = cls(user=user, phone=phone, addition_contacts=addition_contacts, description=description, cv=cv)
+        return employer
+
     class Meta:
         verbose_name = 'Соискатель'
         verbose_name_plural = 'Соискатели'
+    def __str__(self):
+        return 'Логин: {0}'.format(self.user.username)
+
+
+class CandidateForm(ModelForm):
+    class Meta:
+        model = Candidate
+        fields = ['phone', 'addition_contacts', 'description', 'cv']
 
 
 class Education(models.Model):
@@ -86,7 +94,11 @@ class WorkExperience(models.Model):
     )
 
 
-class Company(User):
+class Company(models.Model):
+    id = models.AutoField(
+        primary_key=True,
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     name_company = models.CharField(
         max_length=255,
         verbose_name='Название компании'
@@ -128,8 +140,20 @@ class Company(User):
         verbose_name='Это компания?',
         default=True
     )
+    @classmethod
+    def create(cls, x, c, d, e, f, g, h, i, j, k, l):
+        company = cls(user = x, name_company=c, FIO_CEO=d,
+        Phone_CEO=e, Email_CEO=f, FIO_Contact=g, Phone_Contact=h, Email_Contact=i,
+        description=j, img_logo=k, place=l)
+        return company
     class Meta:
         verbose_name = 'Работодатель'
         verbose_name_plural = 'Работодатели'
+    def __str__(self):
+        return self.user.username
 
 
+class CompanyForm(ModelForm):
+    class Meta:
+        model = Company
+        fields = '__all__'
