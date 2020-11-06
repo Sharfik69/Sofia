@@ -4,15 +4,6 @@ from django.forms import ModelForm
 # from django.dispatch import receiver
 # from django.db.models.signals import post_save
 
-class Tag(models.Model):
-    id = models.AutoField(
-        primary_key=True
-    )
-    name = models.CharField(
-        max_length=255,
-        verbose_name='Название'
-    )
-
 class Candidate(models.Model):
     id = models.AutoField(
         primary_key=True,
@@ -29,7 +20,6 @@ class Candidate(models.Model):
     description = models.TextField(
         verbose_name='О себе'
     )
-    tags = models.ManyToManyField(Tag)
     cv = models.FileField(
         verbose_name='Резюме'
     )
