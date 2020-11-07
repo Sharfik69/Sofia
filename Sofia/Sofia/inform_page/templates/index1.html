@@ -20,16 +20,14 @@
         <form action="/auth/logout">
             <input type="submit" value="Выйти">
         </form>
-        {% if status %}
+        {% if status == 2 %}
             <div id="editor">
-                <p>Привет!</p>
-                <p>Здесь <strong>ТЫ</strong> можешь ввести информацию которую мы потом отобразим соискателю твоей вакансии</p>
-                <p><br></p>
+                {{text.html_text | safe}}
             </div>
             <button id = "test_button" onclick="send_text()">Сохранить текст</button>
             <script>
                 function send_text(){
-                    $.post('{% url 'send_text_to_server' %}', {'num': '0', 'id_vac': 'ok', 'text_for_user': $("#editor").html(), 'csrfmiddlewaretoken': '{{ csrf_token }}'})
+                    $.post('{% url 'send_text_to_server' %}', {'num': {{ID_IMG}}, 'id_vac': {{ID}}, 'text_for_user': $("#editor").html(), 'csrfmiddlewaretoken': '{{ csrf_token }}'})
                         .done(function(response) { 
                             alert(response);
                         });
@@ -40,7 +38,7 @@
                     // quill.enable(false);
                 }
             </script>
-        {% else %}
+        {% elif status == 1 %}
             <div id="shower"></div>
             <script>
                 $( document ).ready(function() {

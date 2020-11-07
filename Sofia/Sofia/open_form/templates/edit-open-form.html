@@ -14,6 +14,7 @@
 
     Страница редактирования открытой формы
 
+
 {% endblock %} 
 
 {% block main %}
@@ -31,17 +32,13 @@
     {% endif %}
     
 
-<div class = "description">
-    {{description}}
-</div>
-
 <div class = "answer">
     
     <form id = "openFormAns" method = "POST" action = "/open-form/write_openForm_ans/" name="myform">
         {% csrf_token %}
         <input type="hidden" name = "id" value = {{id}}>
         <textarea id = "textarea" rows = "10" cols = "60" name = "answer" placeholder="Дайте здесь развернутый ответ"> 
-            {{answer}}
+            {{description}}
         </textarea>
         <input type = "button" onclick = func(); value = "Сохранить">
     </form>

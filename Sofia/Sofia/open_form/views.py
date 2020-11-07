@@ -55,13 +55,13 @@ def show_open_form(request, id):
 #Отображает форму для редактирования владельцем
 def edit_open_form(request, id):
     open_form = OpenForm.objects.get(id = id)
-    answer_open_form = OpenFormAnswer.objects.get(open_form_id = open_form)
+    # answer_open_form = OpenFormAnswer.objects.get(open_form_id = open_form)
     info = {}
     info.update(csrf(request))
     info["description"] = open_form.description
     info["id"] = id
     info["username"] = auth.get_user(request).username
-    info["answer"] = answer_open_form.text
+    # info["answer"] = answer_open_form.text
     
     try:
         user = Company.objects.get(user = auth.get_user(request)) 
@@ -92,7 +92,8 @@ def write_mark_to_tast(request):
     open_form_answer.mark = request.POST.get('mark')
     open_form_answer.save()
     return JsonResponse({
-        'status': 'Ok'
+        'status': 'Ok',
+        'text_in_form': open_form
     })
 
 #Сохранаяет изменения в описании задании
