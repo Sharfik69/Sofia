@@ -70,6 +70,10 @@ class Education(models.Model):
         on_delete = models.CASCADE
     )
 
+    class Meta:
+        verbose_name = 'Образование'
+        verbose_name_plural = 'Образование'
+
 
 class WorkExperience(models.Model):
     id = models.AutoField(
@@ -96,6 +100,9 @@ class WorkExperience(models.Model):
         on_delete = models.CASCADE
     )
 
+    class Meta:
+        verbose_name = 'Опыт работы'
+        verbose_name_plural = 'Опыт работы'
 
 class Company(models.Model):
     id = models.AutoField(
@@ -134,7 +141,7 @@ class Company(models.Model):
         verbose_name='О компании'
     )
     #TODO: Сделать путь куда грущзить лого компании
-    img_logo = models.ImageField(upload_to='', blank=True, verbose_name='Логотип компании')
+    img_logo = models.ImageField(upload_to='media/', blank=True, verbose_name='Логотип компании')
     place = models.CharField(
         verbose_name='Адрес компании',
         max_length=300

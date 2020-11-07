@@ -1,0 +1,12 @@
+body{
+    background-color: gainsboro;
+}
+.description{
+    text-align: center;
+    font-family: Verdana, sans-serif;
+    margin-bottom: 10px;
+}
+.answer > form{ 
+    background-color: red;
+    margin: 0 auto;
+}

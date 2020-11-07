@@ -7,6 +7,8 @@ from django.template.context_processors import csrf
 # from .models import CompanyForm, Company, Candidate, CandidateForm
 from .models import Company, Candidate, CandidateForm
 from .forms import Company_new_form, Employer_new_form
+
+
 def auth_login(request):
     if request.POST:
         username = request.POST.get('Uname', '')
@@ -38,21 +40,23 @@ def sign_up(request):
         d['form_for_company'] = Company_new_form()
         d['form_for_candidate'] = Employer_new_form()
     if request.POST:
+        print(request.FILES)
         new_user_form = UserCreationForm(request.POST)
         if new_user_form.is_valid():
             new_user_form.save()
             new_user = auth.authenticate(username = new_user_form.cleaned_data['username'], 
                 password = new_user_form.cleaned_data['password2'])
             auth.login(request, new_user)
+            files = request.FILES
             if whois == '1':
                 empl = Candidate.create(new_user, request.POST.get('phone', ''),
-                request.POST.get('addition_contacts', ''), request.POST.get('description', ''), request.POST.get('cv', ''))
+                request.POST.get('addition_contacts', ''), request.POST.get('description', ''), file_)
                 empl.save()
             else:
                 comp = Company.create(new_user, request.POST.get('name_company', ''), request.POST.get('FIO_CEO', ''),
                     request.POST.get('Phone_CEO', ''), request.POST.get('Email_CEO', ''), request.POST.get('FIO_Contact', ''), request.POST.get('Phone_Contact', ''), 
                     request.POST.get('Email_Contact', ''),
-                    request.POST.get('description', ''), request.POST.get('img_logo', ''), request.POST.get('place', ''))
+                    request.POST.get('description', ''), file_, request.POST.get('place', ''))
                 comp.save()
             return redirect('/test')
         else:

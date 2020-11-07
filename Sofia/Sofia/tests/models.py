@@ -55,6 +55,9 @@ class TestQuestion(models.Model):
         verbose_name = "Вопрос"
         verbose_name_plural = "Вопросы"
 
+    class Meta:
+        verbose_name = 'Вопрос к тесту'
+        verbose_name_plural = 'Вопросы к тесту'
 
 class ResultsTest(models.Model):
     id = models.AutoField(

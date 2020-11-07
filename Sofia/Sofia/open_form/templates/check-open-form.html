@@ -1,0 +1,57 @@
+{% extends "user_page/wrapper.html" %}
+
+{% load static %}
+
+{% block extrahead %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src = {% static "/js/check-open-form.js" %}></script>
+    <link href = {% static "/css/check-open-form.css" %} type = "text/css" rel = "stylesheet">
+    
+
+{% endblock %}
+
+{% block title %}
+
+    Страница открытой формы
+
+{% endblock %} 
+
+{% block main %}
+
+    {% if not username %}
+        <script type="text/javascript">
+            location="http://localhost:8000/test/";
+        </script>
+    {% endif %}
+    
+    {% if not isCompany %}
+        <script type="text/javascript">
+            location="http://localhost:8000/test/";
+        </script>
+    {% endif %}
+
+<div class = "description">
+    {{description}}
+</div>
+
+<div class = "answer">
+    
+    <form id = "openFormAns" method = "POST" action = "/open-form/write_openForm_ans/" name="myform">
+        {% csrf_token %}
+        <input type="hidden" name = "id" value = {{id}}>
+        <textarea rows = "10" cols = "60" name = "answer" placeholder="Дайте здесь развернутый ответ"> 
+            {{answer}}
+        </textarea>
+        <input type ="file" id = "file" name = "file">
+        <input type = "number" id = "mark" name = "mark">
+        <input type = "button" onclick = func() value = "Отправить">
+    </form>
+</div>
+
+<div class = "status">
+
+</div>
+    
+
+
+{% endblock %} 

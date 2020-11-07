@@ -1,5 +1,7 @@
 from django.db import models
 from vacancy.models import Vacancy
+
+
 class Text(models.Model):
     html_text = models.TextField(
         verbose_name='Текст для пользователя с картинками'
@@ -17,3 +19,7 @@ class Text(models.Model):
     def create(cls, text, vacancy):
         new_text = cls(html_text=text, vacancy_id=vacancy)
         return new_text
+
+    class Meta:
+        verbose_name = 'Текст'
+        verbose_name_plural = 'Тексты'
