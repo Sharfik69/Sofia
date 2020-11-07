@@ -55,7 +55,7 @@ function addColumn(){
     countCol++;
 }
 
-function submitData(id_test){
+function submitData(id_test, order){
     //console.log($('#quest').children('#quest0').val());
 
     let ln_qst = $('.collection > div#quest').length;
@@ -63,6 +63,7 @@ function submitData(id_test){
 
     fd = new FormData()
     fd.append('len', ln_qst);
+    fd.append('order', order);
 
     for(let i=0;i<ln_qst;i++){
         let ln = $('#quest > #btnAns' + i).children('div').length;
