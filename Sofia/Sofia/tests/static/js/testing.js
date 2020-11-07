@@ -37,6 +37,10 @@ $(document).ready(function() {
     console.log(answer);
     elem.eq(index).show("fast");
     $('input#backbtn').hide();
+    if(len_quest == 1){
+        $('input#nextbtn').hide();
+        $('input#submitData').show();
+    }
 
     $('input#nextbtn').click(function (){
         progressStep(1, Math.round(100 / len_quest));
