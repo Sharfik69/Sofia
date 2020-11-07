@@ -11,9 +11,27 @@ function addRow(elem){
         '')
 }
 
+function delColumn(elem){
+    console.log(elem.id);
+    let index = parseInt(elem.id.toString().slice(2, elem.id.toString().length));
+    console.log(index);
+    $('.collection > div#quest').eq(index).remove();
+    countCol -= 1;
+    for (let i=index;i<$('.collection > div#quest').length;i++){
+        let parent = $('.collection > div#quest').eq(i);
+
+        parent.children('textarea').attr('id', 'quest' + (i).toString());
+        parent.children('div').attr('id', 'btnAns' + (i).toString());
+        console.log(parent.children('div > input').attr('name'));
+        parent.children('div > input').attr('name', 'a' + (i).toString());
+        parent.children('input#' + (i+1).toString()).attr('id', '' + (i).toString());
+        parent.children('input#dc' + (i+1).toString()).attr('id', 'dc' + (i).toString());
+    }
+
+}
+
 function addColumn(){
     if(!$('input#savebtn').is(":visible")){
-        console.log("HIDEN");
         $('input#savebtn').show();
     }
     $(".collection").append('<div id="quest">'+
@@ -24,7 +42,8 @@ function addColumn(){
         '<input type="text" id="ans0" name="a' + countCol + '"/>'+
         '<div><input type="checkbox" name="ans0">'+
         '<label for="ans0">Правильный ответ?</label></div>'+
-        '</div><input id="' + countCol + '" type="button" value="+" onclick="addRow(this)"></div><br>');
+        '</div><input id="' + countCol + '" type="button" value="+" onclick="addRow(this)"><br>'+
+        '<input id="dc' + countCol + '" type="button" value="Удалить вопрос" id="DeleteCol" onclick=delColumn(this)></div><br>');
     countCol++;
 }
 
@@ -50,7 +69,7 @@ function submitData(id_test){
         chld = $('#quest > #btnAns' + i + ' > div > input');
 
         let count_true = 0;
-        let quest_type = 0;
+        let quest_type = 1;
         let j_is_tr = '';
         if (ln > 1) {
             j_is_tr = '{ "ans": ["' + chld.eq(0).is(":checked");
@@ -65,7 +84,7 @@ function submitData(id_test){
         }
         j_is_tr += '"]}';
         if(count_true > 1){
-            quest_type = 1
+            quest_type = 0
         }else if(ln === 1){
             quest_type = 2
         }

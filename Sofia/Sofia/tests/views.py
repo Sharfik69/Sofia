@@ -8,35 +8,42 @@ import json
 
 from .models import Test, TestQuestion, ResultsTest
 from vacancy.models import Vacancy
-from authsystem.models import Candidate
+from authsystem.models import Candidate, Company
 
 
 def take_the_test(request, id_test):
-    queryset_test = Test.objects.filter(id=id_test).first()
-    # queryset_test = Test.objects.all().first()
-    queryset_questions = TestQuestion.objects.filter(id_test=queryset_test.id)
-    print(queryset_test.id)
-    res = []
-    for question in queryset_questions:
-        ans = []
-        if question.type != 2:
-            ans = list(json.loads(question.jsn_ans)['ans'])
-        res.append({'quest': question.quest, 'ans': ans, 'type': question.type})
-    print(res)
+    try:
+        user = Company.objects.get(user=auth.get_user(request))
+    except Company.DoesNotExist:
+        user = Candidate.objects.get(user=auth.get_user(request))
+    if not user.is_company:
+        queryset_test = Test.objects.filter(id=id_test).first()
+        queryset_questions = TestQuestion.objects.filter(id_test=queryset_test.id)
+        print(queryset_test.id)
+        res = []
+        for question in queryset_questions:
+            ans = []
+            if question.type != 2:
+                ans = list(json.loads(question.jsn_ans)['ans'])
+            res.append({'quest': question.quest, 'ans': ans, 'type': question.type})
+        print(res)
 
-    return render(request, 'index.html',
-                  {'test': str(queryset_test.id),
-                   'vac': str(queryset_test.vacancy.id),
-                   'questions': res,
-                   'order': str(queryset_test.order),
-                   'isCompany': '0'})
-
-
-def edit_the_test(request, id_test):
-
+        return render(request, 'index.html',
+                      {'test': str(queryset_test.id),
+                       'vac': str(queryset_test.vacancy.id),
+                       'questions': res,
+                       'order': str(queryset_test.order),
+                       'isCompany': '0'})
     return render(request, 'index.html',
                   {'test': id_test, 'questions': '',
                    'isCompany': '1'})
+
+#
+# def edit_the_test(request, id_test):
+#
+#     return render(request, 'index.html',
+#                   {'test': id_test, 'questions': '',
+#                    'isCompany': '1'})
 
 
 def post_the_test(request, id_test):
@@ -65,12 +72,16 @@ def post_the_result(request, id_test):
     # print(request.POST.dict())
     print(request.POST.dict())
     queryset_questions = TestQuestion.objects.filter(id_test=request.POST.dict()['id_test'])
+    try:
+        user = Company.objects.get(user=auth.get_user(request))
+    except Company.DoesNotExist:
+        user = Candidate.objects.get(user=auth.get_user(request))
     for i in range(int(request.POST.dict()['len'])):
         values = request.POST.dict()
         val = dict()
         val['id_test'] = Test.objects.filter(id=values['id_test']).first()
         # val['candidate'] = Candidate.objects.filter(id=values['candidate']).first()
-        val['candidate'] = Candidate.objects.all().first()
+        val['candidate'] = user
         val['vacancy'] = Vacancy.objects.filter(id=values['vacancy']).first()
         val['ans'] = values['ans' + str(i)]
         val['order'] = values['order']
@@ -83,8 +94,8 @@ def post_the_result(request, id_test):
 
         val['accuracy'] = accuracy
         print(val)
-        # if val:
-        #     ResultsTest.objects.create(**val)
+        if val:
+            ResultsTest.objects.create(**val)
 
     return render(request, 'index.html')
 
