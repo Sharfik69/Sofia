@@ -1,28 +1,58 @@
 {% extends "user_page/wrapper.html" %}
 
+{% load static %}
+
+{% block extrahead %}
+    <link type='text/css' rel='stylesheet' href={% static "/css/auth-style.css" %}> 
+{% endblock %}
+
 {% block login %}
 
-<h2>Вход в систему</h2><br>    
-<div class="login">    
-    <form id="login" method="POST" action="/auth/login/">    
-        {% csrf_token %}
-        <label><b>Имя пользователя</b>    
-        </label>    
-        <input type="text" name="Uname" id="Uname" placeholder="Username">    
-        <br><br>    
-        <label><b>Пароль</b>    
-        </label>    
-        <input type="Password" name="Pass" id="Pass" placeholder="Password">    
-        <br><br>    
-        <input type="submit" name="log" id="log" value="Войти">       
-        <br><br>    
-    </form>     
-</div> 
 
-{% if status == 'ERROR' %}
-    <h3>Произошла ошибка и мы вернули параметр как ерор</h3>
-{% else %}
-    <h3>Ошибки нет</h3>
-{% endif %}
+    <!-- <div class="need_auth">
+        <h2 class="need_auth--h2">Добро пожаловать!</h2>
+        <h4 class="need_auth--h4">Для дальнейшей работы необходимо авторизоваться</h4>
+        <form action="/auth/login">
+            <input type="submit" value="Войти" class="btn btn-lg btn-secondary btn_auth--register" style="font-size: 25px;">
+        </form>
+        <br>
+        <form action="/auth/registration" class="need_auth--elem">
+            <input type="submit" value="Зарегистрироваться"  class="btn btn-lg btn-secondary btn_auth--register">
+        </form>
+    </div> -->
+
+<div class="text-center not_auth--wrapper flex-column">
+    <div class="need_auth">
+        <h1 class="need_auth--h2">Вход в систему</h1>   
+        <div class="login">    
+            <form id="login" method="POST" action="/auth/login/" class="form-signin">    
+                {% csrf_token %}
+                <!-- <label><b>Имя пользователя</b>     -->
+                </label>    
+                <input type="text" name="Uname" id="Uname" placeholder="Имя пользователя" class="form-control form-control--username">    
+                <!-- <br><br>     -->
+                <!-- <label><b>Пароль</b>     -->
+                </label>    
+                <input type="Password" name="Pass" id="Pass" placeholder="Пароль" class="form-control form-control--password">    
+                <!-- <br><br>     -->
+                <input type="submit" name="log" id="log" value="Войти" class="form-control--btn btn btn-lg btn-secondary">       
+                <!-- <br><br>     -->
+            </form>     
+        </div> 
+        {% if status == 'ERROR' %}
+        <div class="auth-server-ans">
+            <h3 class="need_auth--h3">В результате авторизации произошла ошибка</h3>
+            <h3 class="need_auth--h3">Попробуйте еще раз</h3>
+        </div>
+            
+        {% else %}
+            <!-- <h3>Ошибки нет</h3> -->
+        {% endif %}
+    </div>
+    
+</div>
+
+
+
 
 {% endblock %}
