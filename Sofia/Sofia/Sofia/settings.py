@@ -38,13 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authsystem',
-    'vacancy',
-    'open_form',
-    'test_system',
-    'tests'
-    'inform_page',
-    'interview'
+    'authsystem.apps.AuthsystemConfig',
+    'vacancy.apps.VacancyConfig',
+    'open_form.apps.OpenFormConfig',
+    'test_system.apps.TestSystemConfig',
+    'tests.apps.TestsConfig',
+    'inform_page.apps.InformPageConfig',
+    'interview.apps.InterviewConfig'
 ]
 
 MIDDLEWARE = [
@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 

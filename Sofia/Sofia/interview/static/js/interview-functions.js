@@ -2,6 +2,8 @@ var interviewCntTags = [], interviewCnt = 0;
 
 function interviewAddTags(question, text = "") {
     var divTags = document.getElementById('tags[' + question + ']');
+    let tmp = $("#tags[" + question + "]");
+    console.log(tmp);
     var name = 'tags[' + question + ']';
     divTags.innerHTML += "<input name='" + name + "' placeholder = 'Введите быстрый ответ' value='" + text + "'>";
     interviewCntTags[question]++;

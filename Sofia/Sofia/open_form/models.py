@@ -21,6 +21,10 @@ class OpenForm(models.Model):
     description = models.TextField(
         verbose_name= 'Текст задания'
     )
+
+    class Meta:
+        verbose_name = 'Вопрос'
+        verbose_name_plural = 'Вопросы'
     
 
 class OpenFormAnswer(models.Model):
@@ -52,3 +56,7 @@ class OpenFormAnswer(models.Model):
         blank = True,
         null = True
     )
+
+    class Meta:
+        verbose_name = 'Ответ'
+        verbose_name_plural = 'Ответы'

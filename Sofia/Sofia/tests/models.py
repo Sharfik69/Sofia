@@ -17,6 +17,10 @@ class Test(models.Model):
         verbose_name='Порядок',
     )
 
+    class Meta:
+        verbose_name = 'Тест'
+        verbose_name_plural = 'Тесты'
+
 
 class TestQuestion(models.Model):
     id = models.AutoField(
@@ -42,6 +46,9 @@ class TestQuestion(models.Model):
         verbose_name='Какие варианты ответа верны?',
     )
 
+    class Meta:
+        verbose_name = 'Вопрос к тесту'
+        verbose_name_plural = 'Вопросы к тесту'
 
 class ResultsTest(models.Model):
     id = models.AutoField(
@@ -74,5 +81,9 @@ class ResultsTest(models.Model):
     order = models.IntegerField(
         verbose_name='порядок'
     )
+
+    class Meta:
+        verbose_name = 'Результат теста'
+        verbose_name_plural = 'Результаты теста'
 
 
