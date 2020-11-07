@@ -12,38 +12,63 @@ function addQuestion(name = "", tags = []) {
     interviewCntTags.push(0);
     form_ = document.forms.interviewQuestions;
 
-    form_.innerHTML += "<input name='name[" + interviewCnt + "]' placeholder = 'Введите вопрос' class='center-input'><br>";
+    strHtml = "";
+    strHtml += "<div id='interview_question'>";
 
-    form_.innerHTML += "<div id='tags[" + interviewCnt + "]'class='quick_answer'></div>";
+    strHtml += "<input name='interview_question[" + interviewCnt + "]' placeholder = 'Введите вопрос' class='center-input'><br>";
+
+
+    strHtml += "<div id='tags[" + interviewCnt + "]' class='quick_answer'></div>";
+    strHtml += "<input name='addTags[" + interviewCnt + "]' type='button' onclick='interviewAddTags(" + interviewCnt + ")' \
+                    value='Добавить быстрый ответ' class='center-input'><br><br>";
+    strHtml += "</div>";
+    form_.innerHTML += strHtml;
     for (var i = 0; i < tags.length; i++) {
         interviewAddTags(interviewCnt, tags[i]);
     }
-    form_.innerHTML += "<input name='addTags[" + interviewCnt + "]' type='button' onclick='interviewAddTags(" + interviewCnt + ")' \
-                    value='Добавить быстрый ответ' class='center-input'><br><br>";
-
+                    
     interviewCnt++;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     var btnAddQuestion = document.getElementById("interview-add_question");
-    btnAddQuestion.onclick = () => {
-        addQuestion();
+    if (btnAddQuestion != null) {
+        btnAddQuestion.onclick = () => {
+            addQuestion();
+        }
     }
     var btnSaveForm = document.getElementById('interview-save_question');
-    btnSaveForm.onclick = () => {
-        var fd = new FormData(interviewQuestions);
-
-        
-        $.ajax({
-            type: "POST",
-            url: 'interview/new/ajax/',
-            data: fd,
-            contentType: false,
-            processData: false
-        }).done(function (result) {
-            console.log(result)
-        });
+    if (btnSaveForm != null) {
+        btnSaveForm.onclick = () => {
+            var fd = new FormData(interviewQuestions);
+            $.ajax({
+                type: "POST",
+                url: 'interview/new/ajax/',
+                data: fd,
+                contentType: false,
+                processData: false
+            }).done(function (result) {
+                console.log(result)
+            });
+        }
     }
+
+    var btnSaveForm = document.getElementById('interview-save_answer');
+    if (btnSaveForm != null) {
+        btnSaveForm.onclick = () => {
+            var fd = new FormData(interviewAnswer);
+            $.ajax({
+                type: "POST",
+                url: 'interview/answer/ajax/',
+                data: fd,
+                contentType: false,
+                processData: false
+            }).done(function (result) {
+                console.log(result)
+            });
+        }
+    }
+    
 })
 
 $(document).ready(function() {
@@ -80,3 +105,11 @@ $(document).ready(function() {
     });
 
 });
+
+
+function interviewAnswerAddTag(id, text){
+    let textArea = document.getElementsByName('answer[' + id + ']')[0];
+    if (textArea) {
+        textArea.innerHTML += text;
+    }
+}
