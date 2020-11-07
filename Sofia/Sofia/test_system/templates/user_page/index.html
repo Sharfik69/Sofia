@@ -4,6 +4,8 @@
 
 {% block extrahead %}
     <link type='text/css' rel='stylesheet' href='{% static "/css/auth-style.css" %}'>
+    
+    <link type='text/css' rel='stylesheet' href={% static "/css/interview-style.css" %}> 
 {% endblock %}
 
 
@@ -19,9 +21,11 @@
         <div class="main--wrapper">
             <div class="main-menu--top">
                 <ul class="main-menu--top-ul">
-                    <li class="main-menu--top-li">пункт 1</li>
-                    <li class="main-menu--top-li">пункт 2</li>
-                    <li class="main-menu--top-li">пункт 3</li>
+                    <li class="main-menu--top-li"><a href="/test/all_vacancies/" class="tag--a">Все вакансии</a></li>
+                    <li class="main-menu--top-li"><a href="/test/my_vac/" class="tag--a">Мои вакансии</a></li>
+                    {% if status %}
+                    <li class="main-menu--top-li"><a href="/test/create_vac/" class="tag--a">Создать вакансию</a></li>
+                    {% endif %}
                     <li class="main-menu--top-li">
                         <form action="/auth/logout">
                             <input type="submit" value="Выйти">

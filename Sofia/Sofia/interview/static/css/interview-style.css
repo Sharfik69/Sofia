@@ -21,7 +21,7 @@ footer {
     align-items: center;
     flex-direction: row-reverse;
     padding-right: 20px;
-    margin-top: 100px;
+    margin-top: 10px;
 }
 
 .main--wrapper {
@@ -126,4 +126,9 @@ a.text {
     background-color: white !important;
     width: 100% !important;
     text-align: left !important;
+}
+
+footer {
+    display: flex;
+    align-items: center;
 }
