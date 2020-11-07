@@ -2,13 +2,13 @@
 
 {% block title %}
 
-    Страница индекс
+    Все вакансии
 
 {% endblock %} 
 
 {% block main %}
 
-    <h2>Контент снизу будет виден только авторизированному пользователю</h2>
+    <h2>Страница со всеми вакансиями</h2>
     <h2>Текущий пользователь: {{username}} </h2>
     
     {% if username %}
@@ -17,11 +17,18 @@
         </form>
         {% if status %}
             <h4>company</h4>
-            <form method="get" action="/test/all_vacancies/">
-                <button type="submit">Посмотреть все вакансии</button>
-            </form>
-            <a href="http://li.nk"><button onlick="return false;">Посмотреть вакансии моей компании</button></a>
-            <a href="http://li.nk"><button onlick="return false;">Создать вакансию</button></a>
+            
+            <a href="/test/all_vacancies"><button>Посмотреть все вакансии</button></a></form>
+            <a href="/test/my_vac"><button onlick="return false;">Посмотреть вакансии моей компании</button></a>
+            <a href="/test/create_vac"><button onlick="return false;">Создать вакансию</button></a>
+
+            <p>Форма создания вакансии</p>
+            <form id="login" method="POST" action="/test/create_vac/add_vac">    
+                {% csrf_token %}
+                {{ forms.as_ul }}
+                <input type="submit" name="log" id="log" value="Добавить вакансию">     
+                <br><br>    
+            </form>    
         {% else %}
             <h4>user</h4>
             <a href="http://li.nk"><button onlick="return false;">Посмотреть вакансии</button></a>
@@ -35,7 +42,4 @@
             <input type="submit" value="Зарегестрироваться">
         </form>
     {% endif %}
-
-
-
 {% endblock %} 

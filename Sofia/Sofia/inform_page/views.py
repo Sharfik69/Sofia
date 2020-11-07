@@ -9,18 +9,19 @@ import json
 
 def index(request):
     d = {}
-    d['username'] = auth.get_user(request).username
-    check = False
-    try:
-        d['status'] = Candidate.objects.get(user=request.user.id).get_status_company()
-        check = True
-    except Exception:
-        d['status'] = 'Error'
-    if not check:
+    if not request.user.is_anonymous:
+        d['username'] = auth.get_user(request).username
+        check = False
         try:
-            d['status'] = Company.objects.get(user=request.user.id).get_status_company()
+            d['status'] = Candidate.objects.get(user=request.user.id).get_status_company()
+            check = True
         except Exception:
-            d['status'] = False
+            d['status'] = 'Error'
+        if not check:
+            try:
+                d['status'] = Company.objects.get(user=request.user.id).get_status_company()
+            except Exception:
+                d['status'] = False
     
 
     return render(request, 'index.html', d)

@@ -21,7 +21,7 @@ class Vacancy(models.Model):
         null = False,
         on_delete = models.CASCADE
     )
-    name = models.CharField(
+    name = models.CharField( 
         max_length=255,
         verbose_name='Название',
         default='НАЗВАНИЕ'
@@ -42,6 +42,11 @@ class Vacancy(models.Model):
         blank=True,
         verbose_name='Теги'
     )
+    @classmethod
+    def create(cls, company, name, description, salary):
+        vacan = cls(company=company, name=name, description=description, salary=salary)
+        print(123)
+        return vacan
     class Meta:
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансии'
