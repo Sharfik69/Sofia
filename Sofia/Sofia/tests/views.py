@@ -38,21 +38,24 @@ def take_the_test(request, id_test):
                        'questions': res,
                        'order': str(queryset_test.order),
                        'isCompany': '0'})
+    id_vac, order = str(id_test).split('_')
+    print(id_vac, order)
     return render(request, 'test_page.html',
-                  {'test': id_test, 'questions': '',
-                   'isCompany': '1'})
+                  {'test': id_vac, 'questions': '',
+                   'isCompany': '1', 'order': order})
 
 
 def edit_the_test(request, id_test):
     return render(request, 'test_page.html',
                   {'test': id_test, 'questions': '',
-                   'isCompany': '1', 'orderr': order})
+                   'isCompany': '1', 'orderr': 0})
 
 
 def post_the_test(request, id_test):
     for i in range(int(request.POST.dict()['len'])):
         values = request.POST.dict()
         print(values)
+        order = values['order']
         # values_new = json.dumps(values.replase("\\\\", ""))
         # print(values_new['i'])
         id_tst = values['quest'+str(i)+'.id_test']
@@ -62,7 +65,7 @@ def post_the_test(request, id_test):
         except Test.DoesNotExist:
             d = dict()
             d['vacancy'] = Vacancy.objects.filter(id=id_test).first()
-            d['order'] = '0'
+            d['order'] = order
             Test.objects.create(**d)
             values['quest' + str(i) + '.id_test'] = Test.objects.get(vacancy=d['vacancy'], order=d['order'])
             print('values', values)

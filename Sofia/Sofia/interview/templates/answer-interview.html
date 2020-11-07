@@ -8,22 +8,58 @@
 {% endblock %}
 
 {% block interview %}
-<form name="interviewAnswer">
-    <input name="idCandidate" value="{{idCandidate}}" hidden>
-    <input name="idInterview" value="{{idInterview}}" hidden>
-    {% for question in questions %}
-        <h3>{{question.questionText}}</h3>
+
+<div class="main--wrapper">
+    <div class="main-menu--top">
+        <ul class="main-menu--top-ul">
+            <li class="main-menu--top-li">пункт 1</li>
+            <li class="main-menu--top-li">пункт 2</li>
+            <li class="main-menu--top-li">пункт 3</li>
+            <li class="main-menu--top-li">
+                <form action="/auth/logout">
+                    <input type="submit" value="Выйти">
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">{{interviewName}}</h1>
+            <p>
+                {{candidateName}}
+            </p>
+        </div>
+
+    </div>
+    <div class="container main-content">
+        <form name="interviewAnswer">
+            <input name="idCandidate" value="{{idCandidate}}" hidden>
+            <input name="idInterview" value="{{idInterview}}" hidden>
+            {% for question in questions %}
+                <h3>{{question.questionText}}</h3>
+                
+                <textarea type="text" name="answer[{{question.questionId}}]" class="interview--textarea">{{question.answer}}</textarea>
+                <br>
+                {% for tags in question.tags %}
+                    <input type="button" value="{{tags.text}}" onclick="interviewAnswerAddTag({{question.questionId}}, '{{tags.text}}')" class="btn btn-lg btn-secondary"></button>
+                {% endfor %}
+                <br>
+            {% endfor %}
+        </form>
+        <br>
+        <div class="text-center">
+            <button id="interview-save_answer" class='btn btn-primary btn-lg interview-input--btn'>Сохранить</button>
+        </div>
         
-        <textarea type="text" name="answer[{{question.questionId}}]">{{question.answer}}</textarea>
-        <br>
-        {% for tags in question.tags %}
-            <input type="button" value="{{tags.text}}" onclick="interviewAnswerAddTag({{question.questionId}}, '{{tags.text}}')"></button>
-        {% endfor %}
-        <br>
-    {% endfor %}
-</form>
-<br>
-<button id="interview-save_answer" class='center-input'>Сохранить</button>
+        
+    </div>
+</div>
+
+    
+    <footer>
+        ©vsemi_lubimaya_komanda, 2020
+    </footer>
+
     
 
 {% endblock %} 
