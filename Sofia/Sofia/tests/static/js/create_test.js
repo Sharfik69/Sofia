@@ -104,20 +104,19 @@ function submitData(id_test){
         let name = $('div#quest').children('textarea#quest'+i.toString()).val();
         console.log(name, ' - ', '#quest'+i);
         let img = document.getElementById('selectedFile'+parseInt(i));
-        console.log(img.files[0]);
+        //console.log(img.files[0]);
         fd.append("quest"+i+".id_test", id_test);
         fd.append("quest"+i+".quest", name);
         fd.append("quest"+i+".type", quest_type);
         fd.append("quest"+i+".jsn_ans", j_ans);
         fd.append("quest"+i+".jsn_is_true", j_is_tr);
-        fd.append("quest"+i+".img", img);
+        fd.append("quest"+i+".img", img.files[0]);
 
     }
     $.ajax({
       type: "POST",
       url: "/q_test/cp_post/" + id_test + "",
       data: fd,
-      dataType:'blob',
       contentType: false,
       processData: false,
     }).done(function (result){
