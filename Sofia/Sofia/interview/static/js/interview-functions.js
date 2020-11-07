@@ -1,16 +1,20 @@
 var interviewCntTags = [], interviewCnt = 0;
 
 function interviewAddTags(question, text = "") {
-    var divTags = document.getElementById('tags[' + question + ']');
+    //var divTags = document.getElementById('tags[' + question + ']');
+    var divTags = $('div#tags\\[' + question + '\\]');
+    console.log($('div#tags[' + question + ']'), 'tags[' + question + ']');
     var name = 'tags[' + question + ']';
-    divTags.innerHTML += "<input name='" + name + "' placeholder = 'Введите быстрый ответ' value='" + text + "'>";
+    divTags.append("<input name='" + name + "' placeholder = 'Введите быстрый ответ' value='" + text + "'>");
+    //divTags.innerHTML += "<input name='" + name + "' placeholder = 'Введите быстрый ответ' value='" + text + "'>";
     interviewCntTags[question]++;
 
 }
 
 function addQuestion(name = "", tags = []) {
     interviewCntTags.push(0);
-    form_ = document.forms.interviewQuestions;
+    //form_ = document.forms.interviewQuestions;
+    form_ = $('form#interviewQuestions');
 
     strHtml = "";
     strHtml += "<div id='interview_question'>";
@@ -22,7 +26,9 @@ function addQuestion(name = "", tags = []) {
     strHtml += "<input name='addTags[" + interviewCnt + "]' type='button' onclick='interviewAddTags(" + interviewCnt + ")' \
                     value='Добавить быстрый ответ' class='center-input'><br><br>";
     strHtml += "</div>";
-    form_.innerHTML += strHtml;
+    //form_.innerHTML += strHtml;
+    form_.append(strHtml);
+
     for (var i = 0; i < tags.length; i++) {
         interviewAddTags(interviewCnt, tags[i]);
     }
