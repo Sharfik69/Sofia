@@ -21,27 +21,17 @@
         <form action="/auth/logout">
             <input type="submit" value="Выйти">
         </form>
-
-        {{param1}} <br>
-        {{param2}} <br>
-        {{param3}} <br>
-        <ol>
-            {% for num in numbers %}
-                <li>{{num}}</li>
-            {% endfor %}
-        </ol>
-
-        <ol>
-            {% for kit in kitty %}
-                <li>Димас обычно говорит: {{kit.Dimas}}</li>
-                <li>Однако {{kit.Iriska}}</li>
-            {% endfor %}
-        </ol>
-
-        {% if status == 'ERROR' %}
-            <h3>Произошла ошибка и мы вернули параметр как ерор</h3>
+        {% if status %}
+            <h4>company</h4>
+            <form method="get" action="/test/all_vacancies/">
+                <button type="submit">Посмотреть все вакансии</button>
+            </form>
+            <a href="http://li.nk"><button onlick="return false;">Посмотреть вакансии моей компании</button></a>
+            <a href="http://li.nk"><button onlick="return false;">Создать вакансию</button></a>
         {% else %}
-            <h3>Ошибки нет</h3>
+            <h4>user</h4>
+            <a href="http://li.nk"><button onlick="return false;">Посмотреть вакансии</button></a>
+            <a href="http://li.nk"><button onlick="return false;">Посмотреть мои вакансии</button></a>
         {% endif %}
     {% else %}
         <div  class="text-center not_auth--wrapper flex-column">

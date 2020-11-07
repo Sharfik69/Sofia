@@ -27,6 +27,9 @@ class Candidate(models.Model):
         verbose_name='Это компания?',
         default=False
     )
+
+    def get_status_company(self):
+        return self.is_company
     @classmethod
     def create(cls, user, phone, addition_contacts, description, cv):
         employer = cls(user=user, phone=phone, addition_contacts=addition_contacts, description=description, cv=cv)
@@ -140,6 +143,9 @@ class Company(models.Model):
         verbose_name='Это компания?',
         default=True
     )
+    @property
+    def get_status_company(self):
+        return self.is_company
     @classmethod
     def create(cls, x, c, d, e, f, g, h, i, j, k, l):
         company = cls(user = x, name_company=c, FIO_CEO=d,

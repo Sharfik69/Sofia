@@ -1,0 +1,74 @@
+{% extends "user_page/wrapper.html" %}
+
+{% load static %}
+
+{% block title %}
+
+    Страница с набором текста
+
+{% endblock %} 
+
+{% block extrahead %}
+    <script src="{% static 'js/action.js' %}" ></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block main %}
+    {% if username %}
+        <form action="/auth/logout">
+            <input type="submit" value="Выйти">
+        </form>
+        {% if status %}
+            <div id="editor">
+                <p>Привет!</p>
+                <p>Здесь <strong>ТЫ</strong> можешь ввести информацию которую мы потом отобразим соискателю твоей вакансии</p>
+                <p><br></p>
+            </div>
+            <button id = "test_button" onclick="send_text()">Сохранить текст</button>
+            <script>
+                function send_text(){
+                    $.post('{% url 'send_text_to_server' %}', {'num': '0', 'id_vac': 'ok', 'text_for_user': $("#editor").html(), 'csrfmiddlewaretoken': '{{ csrf_token }}'})
+                        .done(function(response) { 
+                            alert(response);
+                        });
+
+
+                    // $("#shower").html($("#editor").html());
+                    // var quill = new Quill('#shower');
+                    // quill.enable(false);
+                }
+            </script>
+        {% else %}
+            <div id="shower"></div>
+            <script>
+                $( document ).ready(function() {
+                    $.post('{% url 'get_text' %}', {'num': '1', 'v_id': '1', 'csrfmiddlewaretoken': '{{ csrf_token }}'})
+                        .done(function(response) { 
+                            // alert(response);
+                            $("#shower").html(response);
+                            var quill = new Quill('#shower');
+                            quill.enable(false);
+                        });
+                });
+            </script>
+        {% endif%}
+
+
+
+
+    {% else %}
+        <form action="/auth/login">
+            <input type="submit" value="Войти">
+        </form>
+        <form action="/auth/registration">
+            <input type="submit" value="Зарегестрироваться">
+        </form>
+    {% endif %}
+
+    
+    
+    
+    
+{% endblock %} 
