@@ -47,7 +47,7 @@ class TestQuestion(models.Model):
     )
     img = models.ImageField(
         verbose_name="Картинка",
-        upload_to="tests/media/",
+        upload_to="tests/static/media/",
         blank=True,
     )
 

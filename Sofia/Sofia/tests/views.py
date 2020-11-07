@@ -25,8 +25,11 @@ def take_the_test(request, id_test):
             ans = []
             if question.type != 2:
                 ans = list(json.loads(question.jsn_ans)['ans'])
-
-            res.append({'quest': question.quest, 'ans': ans, 'type': question.type})
+            if str(question.img) != "NUL":
+                img_url = str(question.img)[6:]
+            else:
+                img_url = "/static/default.jpg"
+            res.append({'quest': question.quest, 'ans': ans, 'type': question.type, 'img': img_url})
         print(res)
 
         return render(request, 'test_page.html',
@@ -39,19 +42,13 @@ def take_the_test(request, id_test):
                   {'test': id_test, 'questions': '',
                    'isCompany': '1'})
 
-#
-# def edit_the_test(request, id_test):
-#
-#     return render(request, 'index.html',
-#                   {'test': id_test, 'questions': '',
-#                    'isCompany': '1'})
-
 
 def post_the_test(request, id_test):
     print(request.POST.dict())
     for i in range(int(request.POST.dict()['len'])):
         values = request.POST.dict()
         print(values)
+        print(request.FILES)
         # values_new = json.dumps(values.replase("\\\\", ""))
         # print(values_new['i'])
         id_tst = values['quest'+str(i)+'.id_test']
@@ -62,7 +59,10 @@ def post_the_test(request, id_test):
         val['type'] = values['quest' + str(i) + '.type']
         val['jsn_ans'] = values['quest' + str(i) + '.jsn_ans']
         val['jsn_is_true'] = values['quest' + str(i) + '.jsn_is_true']
-        val['img'] = values['quest' + str(i) + '.img']
+        try:
+            val['img'] = request.FILES['quest' + str(i) + '.img']
+        except(KeyError):
+            val['img'] = "NUL"
 
         print(val)
         if val:
