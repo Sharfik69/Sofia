@@ -29,7 +29,7 @@ def create_open_form(request):
     print(request.POST)
     vacancy_id = request.POST.get('id')
     vacancy = Vacancy.objects.get(id = vacancy_id)
-    num = request.POST.get('num')
+    num = request.POST.get('num', 0)
     text = request.POST.get('text')
     
     open_form = OpenForm(vacancy_id = vacancy, order = num, description = text)

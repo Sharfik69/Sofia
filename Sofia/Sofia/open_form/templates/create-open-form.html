@@ -6,6 +6,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src = {% static "/js/create-open-form.js" %}></script>
     <link href = {% static "/css/create-open-form.css" %} type = "text/css" rel = "stylesheet">
+
+    <link type='text/css' rel='stylesheet' href={% static "/css/interview-style.css" %}> 
     
 
 {% endblock %}
@@ -17,7 +19,6 @@
 {% endblock %} 
 
 {% block main %}
-
     {% if not username %}
         <script type="text/javascript">
             location="http://localhost:8000/test/";
@@ -30,27 +31,58 @@
         </script>
     {% endif %}
 
-<div class = "info">
-    Сформулируйте задание с развернутым ответом
-</div>
 
-<div class = "answer">
-    
-    <form id = "openFormAns" method = "POST" action = "/open-form/write_openForm_ans/" name="myform">
-        {% csrf_token %}
-        <input type="hidden" name = "id" value = {{id}}>
-        <textarea rows = "10" cols = "60" name = "text" placeholder="Напишете тут текст задачи"> 
+<div class="main--wrapper">
+    <div class="main-menu--top">
+        <ul class="main-menu--top-ul">
+            <li class="main-menu--top-li">пункт 1</li>
+            <li class="main-menu--top-li">пункт 2</li>
+            <li class="main-menu--top-li">пункт 3</li>
+            <li class="main-menu--top-li">
+                <form action="/auth/logout">
+                    <input type="submit" value="Выйти">
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Создание задания с развернутым ответом</h1>
+            <p>
+                Инструкция инструкция инструкция инструкция инструкция инструкция инструкция инструкция инструкция
+            </p>
+        </div>
+
+    </div>
+    <div class="container main-content">
+        <div class = "info">
+            Сформулируйте задание с развернутым ответом
+        </div>
+        
+        <div class = "answer">
             
-        </textarea>
-        <input type="number" name = "num">
-        <input type = "button" onclick = func() value = "Отправить">
-    </form>
+            <form id = "openFormAns" method = "POST" action = "/open-form/write_openForm_ans/" name="myform">
+                {% csrf_token %}
+                <input type="hidden" name = "id" value = {{id}}>
+                <br>
+                <textarea rows = "10" cols = "60" name = "text" placeholder="Напишете тут текст задачи" class="interview--textarea"></textarea>
+                <!-- <input type="number" name = "num"> -->
+                <input type = "button" onclick = func() value = "Отправить" class="btn btn-lg btn-secondary">
+            </form>
+        </div>
+        
+        <div class = "status">
+        
+        </div>
+        
+        
+    </div>
 </div>
 
-<div class = "status">
-
-</div>
     
+    <footer>
+        ©vsemi_lubimaya_komanda, 2020
+    </footer>
 
 
 {% endblock %} 
