@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.db import models
 from django.http import HttpResponse
 
+import json
+
 from vacancy.models import Vacancy
 from .models import Interview, InterviewQuestion, InterviewTags, InterviewAnswer
 from authsystem.models import Candidate
@@ -52,7 +54,6 @@ def ajax_new_interview(request):
 
     vacancy = Vacancy.objects.get(id=id_vacancy)
 
-    # print(vacancy)
     order = 1
     name = request.POST['interviewName']
     if (idInterview == ''):
@@ -64,14 +65,15 @@ def ajax_new_interview(request):
         interview.save()
     else:
         interview = Interview.objects.get(id=idInterview)
+        interview.name = name
+        interview.save()
         questions = InterviewQuestion.objects.filter(
             interview = interview
         )
         for question in questions:
             question.delete()
     
-
-
+    
     request_questions = dict(request.POST)
     questions = {}
     tags = {}
@@ -105,7 +107,15 @@ def ajax_new_interview(request):
                 new_tag.save()
         
     # print(list(Vacancy.objects.all())[0].id)
-    return HttpResponse("Сохранено")
+    return HttpResponse(
+        json.dumps({
+            'answer': 'Сохранено',
+            'status': 'ok',
+            'id': interview.id,
+        }),
+        content_type="application/json"
+    )
+    
 
 def ajax_answer_interview(request):
     data = {}
@@ -114,18 +124,22 @@ def ajax_answer_interview(request):
         id_candidate = arr['idCandidate'][0]
         id_interview = arr['idInterview'][0]
         candidate = Candidate.objects.get(id = id_candidate)
+        
+        if (candidate == None):
+            return HttpResponse("Случилась ошибка")
 
         for key in arr:
+
             if key.find("answer") == 0:
                 num = key[key.find('[') + 1:][:-1]
                 question = InterviewQuestion.objects.get(id = num)
                 ans = InterviewAnswer.objects.filter(
                     question=question,
                     respondent=candidate
-                )[0]
+                )
                 if (ans):
-                    ans.answer = arr[key][0]
-                    ans.save()
+                    ans[0].answer = arr[key][0]
+                    ans[0].save()
                 else:
                     ans = InterviewAnswer(
                         question = question,
@@ -133,15 +147,10 @@ def ajax_answer_interview(request):
                         answer = arr[key][0]
                     )
                     ans.save()
-                
-    
     return HttpResponse("Сохранено")
-
-
 
 def get_form_for_interview(request):
     data = {}
-
     if (request.GET):
         if 'interview' in request.GET:
             id_interview = request.GET['interview']
@@ -151,11 +160,11 @@ def get_form_for_interview(request):
         if (id_candidate and id_interview):
             data['idInterview'] = id_interview
             interview = Interview.objects.get(id = id_interview)
-            print(id_candidate)
+            # print(id_candidate)
             candidate = Candidate.objects.get(id = id_candidate)
-            print(candidate)
             if (interview and candidate):
                 data['interviewName'] = interview.name
+                data['candidateName'] = candidate.user.first_name + '' + candidate.user.last_name + ' (' + candidate.user.username + ')'
                 arr = []
                 questions = InterviewQuestion.objects.filter(interview = interview)
                 cnt = 0
@@ -188,8 +197,6 @@ def get_form_for_interview(request):
 
                 data['idInterview'] = id_interview
                 data['idCandidate'] = id_candidate
-
-            
 
 
     return render(request, 'answer-interview.html', data)

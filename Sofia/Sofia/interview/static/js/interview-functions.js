@@ -54,7 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 contentType: false,
                 processData: false
             }).done(function (result) {
-                alert(result);
+                alert(result['answer']);
+                if (result['status'] == 'ok') {
+                    console.log($("[name='idInterview']"));
+                    console.log(result['id']);
+                    $("[name='idInterview']").val(result['id']);
+                }
             });
         }
     }
