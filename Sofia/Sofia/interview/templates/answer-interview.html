@@ -9,51 +9,56 @@
 
 {% block interview %}
 
-<div class="main--wrapper">
-    <div class="main-menu--top">
-        <ul class="main-menu--top-ul">
-            <li class="main-menu--top-li">пункт 1</li>
-            <li class="main-menu--top-li">пункт 2</li>
-            <li class="main-menu--top-li">пункт 3</li>
-            <li class="main-menu--top-li">
-                <form action="/auth/logout">
-                    <input type="submit" value="Выйти">
-                </form>
-            </li>
-        </ul>
-    </div>
-    <div class="jumbotron">
-        <div class="container">
-            <h1 class="display-3">{{interviewName}}</h1>
-            <p>
-                {{candidateName}}
-            </p>
-        </div>
 
-    </div>
-    <div class="container main-content">
-        <form name="interviewAnswer">
-            <input name="idCandidate" value="{{idCandidate}}" hidden>
-            <input name="idInterview" value="{{idInterview}}" hidden>
-            {% for question in questions %}
-                <h3>{{question.questionText}}</h3>
-                
-                <textarea type="text" name="answer[{{question.questionId}}]" class="interview--textarea">{{question.answer}}</textarea>
-                <br>
-                {% for tags in question.tags %}
-                    <input type="button" value="{{tags.text}}" onclick="interviewAnswerAddTag({{question.questionId}}, '{{tags.text}}')" class="btn btn-lg btn-secondary"></button>
-                {% endfor %}
-                <br>
-            {% endfor %}
-        </form>
-        <br>
-        <div class="text-center">
-            <button id="interview-save_answer" class='btn btn-primary btn-lg interview-input--btn'>Сохранить</button>
+    <div class="main--wrapper">
+        <div class="main-menu--top">
+            <ul class="main-menu--top-ul">
+                <li class="main-menu--top-li"><a href="/test/all_vacancies/" class="tag--a">Все вакансии</a></li>
+                <li class="main-menu--top-li"><a href="/test/my_vac/" class="tag--a">Мои вакансии</a></li>
+                {% if status %}
+                <li class="main-menu--top-li"><a href="/test/create_vac/" class="tag--a">Создать вакансию</a></li>
+                {% endif %}
+                <li class="main-menu--top-li">
+                    {% if username %}
+                    <form action="/auth/logout">
+                        <input type="submit" value="Выйти">
+                    </form>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
-        
-        
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">{{interviewName}}</h1>
+                <p>
+                    {{candidateName}}
+                </p>
+            </div>
+
+        </div>
+        <div class="container main-content">
+            <form name="interviewAnswer">
+                <input name="idCandidate" value="{{idCandidate}}" hidden>
+                <input name="idInterview" value="{{idInterview}}" hidden>
+                {% for question in questions %}
+                    <h3>{{question.questionText}}</h3>
+                    
+                    <textarea type="text" name="answer[{{question.questionId}}]" class="interview--textarea">{{question.answer}}</textarea>
+                    <br>
+                    {% for tags in question.tags %}
+                        <input type="button" value="{{tags.text}}" onclick="interviewAnswerAddTag({{question.questionId}}, '{{tags.text}}')" class="btn btn-lg btn-secondary"></button>
+                    {% endfor %}
+                    <br>
+                {% endfor %}
+            </form>
+            <br>
+            <div class="text-center">
+                <button id="interview-save_answer" class='btn btn-primary btn-lg interview-input--btn'>Сохранить</button>
+            </div>
+            
+            
+        </div>
     </div>
-</div>
 
     
     <footer>
@@ -61,5 +66,4 @@
     </footer>
 
     
-
 {% endblock %} 

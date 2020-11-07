@@ -47,8 +47,11 @@ def show_open_form(request, id):
     info["description"] = open_form.description
     info["id"] = id
     info["username"] = auth.get_user(request).username
-    user = Company.objects.get(user = auth.get_user(request)) 
-    info["isCompany"] = user.is_company
+    try:
+        user = Company.objects.get(user = auth.get_user(request).id) 
+        info["isCompany"] = user.is_company
+    except:
+        info['isCompany'] = False
     return render(request, 'open-form.html', info)
 
 
@@ -113,15 +116,22 @@ def save_form_edition(request):
         )
 #сохраняет ответ юзера
 def write_openForm_ans(request):
+
     try:
         files = request.FILES
         answer = request.POST.get('answer')
         form_id = request.POST.get('id')
-        
+        candidate = Candidate.objects.get(user = auth.get_user(request))
+        open_form = OpenForm.objects.get(id = form_id)
+        anti_spam = OpenFormAnswer.objects.filter(open_form_id = open_form, candidate_id = candidate)
+        if len(anti_spam) != 0:
+            return JsonResponse({
+                'status': 'Fail'
+        })
         form_answer = OpenFormAnswer(
             text = answer,
-            open_form_id = OpenForm.objects.get(id = form_id),
-            candidate_id = Candidate.objects.get(username = "user")
+            open_form_id = open_form,
+            candidate_id = candidate
         )
        
         #проверка на пустоту
