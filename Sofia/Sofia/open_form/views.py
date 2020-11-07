@@ -47,8 +47,11 @@ def show_open_form(request, id):
     info["description"] = open_form.description
     info["id"] = id
     info["username"] = auth.get_user(request).username
-    user = Company.objects.get(user = auth.get_user(request)) 
-    info["isCompany"] = user.is_company
+    try:
+        user = Company.objects.get(user = auth.get_user(request).id) 
+        info["isCompany"] = user.is_company
+    except:
+        info['isCompany'] = False
     return render(request, 'open-form.html', info)
 
 
@@ -120,7 +123,7 @@ def write_openForm_ans(request):
         form_answer = OpenFormAnswer(
             text = answer,
             open_form_id = OpenForm.objects.get(id = form_id),
-            candidate_id = Candidate.objects.get(username = "user")
+            candidate_id = Candidate.objects.get(user = auth.get_user(request))
         )
        
         #проверка на пустоту

@@ -16,10 +16,11 @@ function func(){
         contentType: false,
         processData: false
     }).done(function (result) {
+        console.log(status);
         if (result["status"] == "Ok"){
-            $(".status").append("<div>Ваш ответ успешно отправлен</div>");       
+            alert("Все ок");      
         }else{
-            $(".status").append("<div>Что-то пошло не так</div>");
+            alert("Что-то пошло не так");
         }
     });
 }

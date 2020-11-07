@@ -13,9 +13,9 @@ function func(){
         processData: false
     }).done(function (result) {
         if (result["status"] == "Ok"){
-            $(".status").append("<div>Ваш ответ успешно отправлен</div>");       
+            alert("Все ок");       
         }else{
-            $(".status").append("<div>Что-то пошло не так</div>");
+            alert("Что-то пошло не так");
         }
     });
 }
