@@ -116,15 +116,22 @@ def save_form_edition(request):
         )
 #сохраняет ответ юзера
 def write_openForm_ans(request):
+
     try:
         files = request.FILES
         answer = request.POST.get('answer')
         form_id = request.POST.get('id')
-        
+        candidate = Candidate.objects.get(user = auth.get_user(request))
+        open_form = OpenForm.objects.get(id = form_id)
+        anti_spam = OpenFormAnswer.objects.filter(open_form_id = open_form, candidate_id = candidate)
+        if len(anti_spam) != 0:
+            return JsonResponse({
+                'status': 'Fail'
+        })
         form_answer = OpenFormAnswer(
             text = answer,
-            open_form_id = OpenForm.objects.get(id = form_id),
-            candidate_id = Candidate.objects.get(user = auth.get_user(request))
+            open_form_id = open_form,
+            candidate_id = candidate
         )
        
         #проверка на пустоту
