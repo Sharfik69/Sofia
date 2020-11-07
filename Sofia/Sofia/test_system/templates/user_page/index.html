@@ -1,5 +1,12 @@
 {% extends "user_page/wrapper.html" %}
 
+{% load static %}
+
+{% block extrahead %}
+    <link type='text/css' rel='stylesheet' href={% static "/css/auth-style.css" %}> 
+{% endblock %}
+
+
 {% block title %}
 
     Страница индекс
@@ -7,11 +14,10 @@
 {% endblock %} 
 
 {% block main %}
-
-    <h2>Контент снизу будет виден только авторизированному пользователю</h2>
-    <h2>Текущий пользователь: {{username}} </h2>
     
     {% if username %}
+        <h2>Контент снизу будет виден только авторизированному пользователю</h2>
+        <h2>Текущий пользователь: {{username}} </h2>
         <form action="/auth/logout">
             <input type="submit" value="Выйти">
         </form>
@@ -38,12 +44,19 @@
             <h3>Ошибки нет</h3>
         {% endif %}
     {% else %}
-        <form action="/auth/login">
-            <input type="submit" value="Войти">
-        </form>
-        <form action="/auth/registration">
-            <input type="submit" value="Зарегестрироваться">
-        </form>
+        <div  class="text-center not_auth--wrapper flex-column">
+            <div class="need_auth">
+                <h2 class="need_auth--h2">Добро пожаловать!</h2>
+                <h4 class="need_auth--h4">Для дальнейшей работы необходимо авторизоваться</h4>
+                <form action="/auth/login">
+                    <input type="submit" value="Войти" class="btn btn-lg btn-secondary btn_auth--register" style="font-size: 25px;">
+                </form>
+                <br>
+                <form action="/auth/registration" class="need_auth--elem">
+                    <input type="submit" value="Зарегистрироваться"  class="btn btn-lg btn-secondary btn_auth--register">
+                </form>
+            </div>
+        </div>
     {% endif %}
 
 
