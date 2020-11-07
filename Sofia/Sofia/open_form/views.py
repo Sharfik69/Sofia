@@ -38,17 +38,46 @@ def edit_open_form(request, id):
         info["isCompany"] = False
     return render(request, 'edit-open-form.html', info)
 
+#Проверка задания от юзера работодателем
+def check_open_form(request, id):
+    open_form = OpenForm.objects.get(id = id)
+    open_form_answer = OpenFormAnswer.objects.get(open_form_id= open_form)
 
-#Сохранаяет изменения в описании задании
-def save_form_edition(request):
-    edited_text = request.POST.get('answer')
+    info = {}
+    info.update(csrf(request))
+    info["description"] = open_form.description
+    info["id"] = id
+    info["username"] = auth.get_user(request).username
+    user = Company.objects.get(user = auth.get_user(request)) 
+    info["isCompany"] = user.is_company
+    info["answer"] = open_form_answer.text
+    return render(request, 'check-open-form.html', info)
+
+#Записать оценку в бд
+def write_mark_to_tast(request):
     open_form = OpenForm.objects.get(id = request.POST.get('id'))
-    open_form.description = edited_text
-    open_form.save()
+    open_form_answer = OpenFormAnswer.objects.get(open_form_id= open_form)
+    open_form_answer.mark = request.POST.get('mark')
+    open_form_answer.save()
     return JsonResponse({
         'status': 'Ok'
     })
 
+#Сохранаяет изменения в описании задании
+def save_form_edition(request):
+    try:
+        edited_text = request.POST.get('answer')
+        open_form = OpenForm.objects.get(id = request.POST.get('id'))
+        open_form.description = edited_text
+        open_form.save()
+        return JsonResponse({
+            'status': 'Ok'
+        })
+    except:
+        return JsonResponse({
+            'status': 'Fail'
+        }
+        )
 #сохраняет ответ юзера
 def write_openForm_ans(request):
     try:
@@ -77,4 +106,3 @@ def write_openForm_ans(request):
         return JsonResponse({
             'status': 'Fail'
         })
-    # return render(request, 'answer_sent.html')
