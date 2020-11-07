@@ -6,6 +6,38 @@ from django.contrib import auth
 from .models import OpenForm, OpenFormAnswer
 from authsystem.models import Candidate
 from authsystem.models import Company
+from vacancy.models import Vacancy
+
+#Отображает форму для ответа юзером
+def create_open_form_show(request):
+    
+    info = {}
+    info.update(csrf(request))
+    
+    info["id"] = 1
+    info["username"] = auth.get_user(request).username
+    try:
+        user = Company.objects.get(user = auth.get_user(request)) 
+        info["isCompany"] = user.is_company
+    except:
+        info["isCompany"] = False
+    
+    return render(request, 'create-open-form.html', info)
+
+
+def create_open_form(request):
+    print(request.POST)
+    vacancy_id = request.POST.get('id')
+    vacancy = Vacancy.objects.get(id = vacancy_id)
+    num = request.POST.get('num')
+    text = request.POST.get('text')
+    
+    open_form = OpenForm(vacancy_id = vacancy, order = num, description = text)
+    open_form.save()
+
+    return JsonResponse({
+        'status': 'Ok'
+    })
 
 #Отображает форму для ответа юзером
 def show_open_form(request, id):
