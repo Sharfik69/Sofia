@@ -21,7 +21,7 @@
     <div class="collection row"></div>
     <input type="button" value="Добавить вопрос" id="AddCol" onclick=addColumn()>
     <br>
-    <input id="savebtn" type="button" value="Сохранить тест" onclick=submitData({{ test }}) style="display: none;">
+    <input id="savebtn" type="button" value="Сохранить тест" onclick="submitData({{ test }})" style="display: none;">
 {% else %}
     <h1>Пройдите тест</h1>
     <div class="progress" style="margin-top: 30px; margin-bottom: 20px">

@@ -17,6 +17,7 @@ def take_the_test(request, id_test):
     except Company.DoesNotExist:
         user = Candidate.objects.get(user=auth.get_user(request))
     if not user.is_company:
+
         queryset_test = Test.objects.filter(id=id_test).first()
         queryset_questions = TestQuestion.objects.filter(id_test=queryset_test.id)
         print(queryset_test.id)
@@ -31,7 +32,6 @@ def take_the_test(request, id_test):
                 img_url = "/static/default.jpg"
             res.append({'quest': question.quest, 'ans': ans, 'type': question.type, 'img': img_url})
         print(res)
-
         return render(request, 'test_page.html',
                       {'test': str(queryset_test.id),
                        'vac': str(queryset_test.vacancy.id),
@@ -43,16 +43,29 @@ def take_the_test(request, id_test):
                    'isCompany': '1'})
 
 
+def edit_the_test(request, id_test):
+    return render(request, 'test_page.html',
+                  {'test': id_test, 'questions': '',
+                   'isCompany': '1', 'orderr': order})
+
+
 def post_the_test(request, id_test):
-    print(request.POST.dict())
     for i in range(int(request.POST.dict()['len'])):
         values = request.POST.dict()
         print(values)
-        print(request.FILES)
         # values_new = json.dumps(values.replase("\\\\", ""))
         # print(values_new['i'])
         id_tst = values['quest'+str(i)+'.id_test']
-        values['quest'+str(i)+'.id_test'] = Test.objects.filter(id=values['quest'+str(i)+'.id_test']).first()
+        try:
+            values['quest'+str(i)+'.id_test'] = Test.objects.get(id=values['quest'+str(i)+'.id_test'])
+            print('YA TUT')
+        except Test.DoesNotExist:
+            d = dict()
+            d['vacancy'] = Vacancy.objects.filter(id=id_test).first()
+            d['order'] = '0'
+            Test.objects.create(**d)
+            values['quest' + str(i) + '.id_test'] = Test.objects.get(vacancy=d['vacancy'], order=d['order'])
+            print('values', values)
         val = dict()
         val['id_test'] = values['quest' + str(i) + '.id_test']
         val['quest'] = values['quest' + str(i) + '.quest']
