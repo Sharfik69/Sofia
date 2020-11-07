@@ -6,6 +6,8 @@ from authsystem.models import Candidate, Company
 from django.contrib.auth.models import User
 from vacancy.models import Vacancy
 from vacancy.forms import vacancy_form
+from django.shortcuts import redirect
+
 import json
 
 def ret_info_user(request):

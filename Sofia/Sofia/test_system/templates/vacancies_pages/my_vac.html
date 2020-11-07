@@ -1,5 +1,15 @@
 {% extends "user_page/wrapper.html" %}
 
+{% load static %}
+
+{% block extrahead %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <link type='text/css' rel='stylesheet' href={% static "/css/interview-style.css" %}> 
+    
+{% endblock %}
+
 {% block title %}
 
     Все вакансии
@@ -7,7 +17,74 @@
 {% endblock %} 
 
 {% block main %}
+<div class="main--wrapper">
+    <div class="main-menu--top">
+        <ul class="main-menu--top-ul">
+            <li class="main-menu--top-li"><a href="/test/all_vacancies/" class="tag--a">Все вакансии</a></li>
+            <li class="main-menu--top-li"><a href="/test/my_vac/" class="tag--a">Мои вакансии</a></li>
+            {% if status %}
+            <li class="main-menu--top-li"><a href="/test/create_vac/" class="tag--a">Создать вакансию</a></li>
+            {% endif %}
+            <li class="main-menu--top-li">
+                {% if username %}
+                <form action="/auth/logout">
+                    <input type="submit" value="Выйти">
+                </form>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Мои вакансии</h1>
+            <p>
+                Текущий пользователь: {{username}}
+            </p>
+        </div>
 
+    </div>
+    <div class="container main-content">
+        {% if username %}
+            {% if status %}
+                <h2>Список вакансий</h2>
+
+                {% for vac in vacancies %}
+                    {% if username == vac.company.user.username %}
+                        <a href="/add_stage/{{vac.pk}}" class="block-vacancy--a">
+                            <div class="vacancy--main-div">
+                                <h2>{{vac.name}}</h2>
+                                <h4>{{vac.company.user.username}}</h4>
+                                <br>
+                                <p>Требования к кандидату: <br>{{vac.description}}</p>
+
+                                <p>Заработная плата: <br>{{vac.salary}}</p>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+            {% else %}
+                <h4>user</h4>
+                <a href="/test/all_vacancies"><button onlick="return false;">Посмотреть вакансии</button></a>
+                <a href="/test/my_vac"><button onlick="return false;">Посмотреть мои вакансии</button></a>
+            {% endif %}
+        {% else %}
+            <form action="/auth/login">
+                <input type="submit" value="Войти">
+            </form>
+            <form action="/auth/registration">
+                <input type="submit" value="Зарегbстрироваться">
+            </form>
+        {% endif %}
+        
+    </div>
+</div>
+
+    
+    <footer>
+        ©vsemi_lubimaya_komanda, 2020
+    </footer>
+<!-- 
     <h2>Страница со всеми вакансиями</h2>
     <h2>Текущий пользователь: {{username}} </h2>
     
@@ -38,7 +115,7 @@
         <form action="/auth/registration">
             <input type="submit" value="Зарегестрироваться">
         </form>
-    {% endif %}
+    {% endif %} -->
 
 
 
