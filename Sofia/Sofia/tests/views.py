@@ -35,8 +35,24 @@ def edit_the_test(request, id_test):
 
 
 def post_the_test(requset, id_test):
-    l = requset.POST
-    print(l)
+    print(requset.POST.dict())
+    for i in range(int(requset.POST.dict()['len'])):
+        values = requset.POST.dict()
+        print(values)
+        # values_new = json.dumps(values.replase("\\\\", ""))
+        # print(values_new['i'])
+        id_tst = values['quest'+str(i)+'.id_test']
+        values['quest'+str(i)+'.id_test'] = Test.objects.filter(id=values['quest'+str(i)+'.id_test']).first()
+        val = dict()
+        val['id_test'] = values['quest' + str(i) + '.id_test']
+        val['quest'] = values['quest' + str(i) + '.quest']
+        val['type'] = values['quest' + str(i) + '.type']
+        val['jsn_ans'] = values['quest' + str(i) + '.jsn_ans']
+        val['jsn_is_true'] = values['quest' + str(i) + '.jsn_is_true']
+        print(val)
+        if val:
+            TestQuestion.objects.create(**val)
+    # return redirect('../cd/' + str(id_tst))
     return render(requset, 'index.html')
 
 
