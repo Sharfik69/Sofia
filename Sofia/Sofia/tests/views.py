@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
@@ -119,6 +119,7 @@ def post_the_result(request, id_test):
         user = Company.objects.get(user=auth.get_user(request))
     except Company.DoesNotExist:
         user = Candidate.objects.get(user=auth.get_user(request))
+    accuracy = 0
     for i in range(int(request.POST.dict()['len'])):
         values = request.POST.dict()
         val = dict()
@@ -129,7 +130,7 @@ def post_the_result(request, id_test):
         val['ans'] = values['ans' + str(i)]
         val['order'] = values['order']
 
-        accuracy = 0
+
         if queryset_questions[i].jsn_is_true == val['ans']:
             accuracy += 1
         # accuracy = int(request.POST.dict()['len']) / accuracy * 100
@@ -140,6 +141,9 @@ def post_the_result(request, id_test):
         if val:
             ResultsTest.objects.create(**val)
 
-    return render(request, 'test_page.html')
+    l = 0
+    if accuracy != 0:
+        l = int(request.POST.dict()['len']) / accuracy * 100
+    return JsonResponse({'ans': l})
 
 

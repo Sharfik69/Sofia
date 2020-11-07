@@ -12,10 +12,44 @@
 <script src="{% static '/js/testing.js' %}"></script>
 {% endif %}
 
+<link type='text/css' rel='stylesheet' href={% static "/css/interview-style.css" %}>
+
 {% endblock %}
 
 {% block login %}
-<div class="container">
+<div class="">
+    <div class="main--wrapper">
+    <div class="main-menu--top">
+        <ul class="main-menu--top-ul">
+            <li class="main-menu--top-li">пункт 1</li>
+            <li class="main-menu--top-li">пункт 2</li>
+            <li class="main-menu--top-li">пункт 3</li>
+            <li class="main-menu--top-li">
+                <form action="/auth/logout">
+                    <input type="submit" value="Выйти">
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">
+                {% if isCompany == '1' %}
+                Создание теста
+                {% else %}
+                Прохождение теста
+                {% endif %}
+            </h1>
+            <p>
+                Инструкция инструкция инструкция инструкция инструкция инструкция инструкция инструкция инструкция
+            </p>
+        </div>
+
+    </div>
+    <div class="container main-content">
+        <div class = "info">
+        </div>
+<div class = "answer">
 {% if isCompany == '1' %}
     <h1>Создание теста</h1>
     <div id="existFiels" hidden>
@@ -34,12 +68,12 @@
     {% endfor %}
     </div>
     <div class="collection row"></div>
-    <input type="button" value="Добавить вопрос" id="AddCol" onclick=addColumn()>
+    <input type="button" class="btn btn-lg btn-secondary" value="Добавить вопрос" id="AddCol" onclick=addColumn() style="margin: 10px">
     <br>
     {% if exist_check == '0' %}
-    <input id="savebtn" type="button" value="Сохранить тест" onclick="submitData({{ test }}, {{ order }})" style="display: none;">
+    <input id="savebtn" class="btn btn-lg btn-secondary" type="button" value="Сохранить тест" onclick="submitData({{ test }}, {{ order }})" style="display: none; margin: 10px">
     {% else %}
-    <input id="savebtn" type="button" value="Сохранить тест" onclick="submitData({{ test }}, -5)" style="display: none;">
+    <input id="savebtn" class="btn btn-lg btn-secondary" type="button" value="Сохранить тест" onclick="submitData({{ test }}, -5)" style="display: none; margin: 10px">
     {% endif %}
 {% else %}
     <h1>Пройдите тест</h1>
@@ -72,16 +106,17 @@
             </div>
                 <hr>
                 <center>
-            <input type="button" value="Назад" id="backbtn" style="display: none;"/>
-            <input type="button" value="Далее" id="nextbtn"/>
-            <input type="button" value="Завершить" id="submitData" style="display: none;" onclick="submitData({{ test }}, {{ vac }}, {{order}})" />
+            <input type="button" value="Назад" id="backbtn" style="display: none;" class="btn btn-lg btn-secondary"/>
+            <input type="button" value="Далее" id="nextbtn" class="btn btn-lg btn-secondary"/>
+            <input type="button" value="Завершить" id="submitData" style="display: none;" onclick="submitData({{ test }}, {{ vac }}, {{order}})" class="btn btn-lg btn-secondary"/>
                 </center>
             </div><div class="col-md-2"></div>
             </div>
         </div>
     {% endfor %}
 {% endif %}
-    <input type="button" id="startConfetti" hidden>
+</div>
+    <input type="button" id="startConfetti" class="btn btn-lg btn-secondary" hidden>
     <script src="{% static '/js/plugin/jquery_confetti.js' %}"></script>
 </div>
 {% endblock %}

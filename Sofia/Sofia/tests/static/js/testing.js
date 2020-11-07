@@ -129,7 +129,8 @@ function submitData(id_test, id_vacancy, order){
       contentType: false,
       processData: false,
     }).done(function (result){
-
+        console.log(result)
+        alert('Вы прошли тестю Ваш результат:' + result['ans']);
     });
     $('#startConfetti').trigger('click');
 }
