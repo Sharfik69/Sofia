@@ -65,11 +65,14 @@ def ajax_new_interview(request):
         interview.save()
     else:
         interview = Interview.objects.get(id=idInterview)
+        interview.name = name
+        interview.save()
         questions = InterviewQuestion.objects.filter(
             interview = interview
         )
         for question in questions:
             question.delete()
+    
     
     request_questions = dict(request.POST)
     questions = {}
@@ -157,6 +160,7 @@ def get_form_for_interview(request):
         if (id_candidate and id_interview):
             data['idInterview'] = id_interview
             interview = Interview.objects.get(id = id_interview)
+            # print(id_candidate)
             candidate = Candidate.objects.get(id = id_candidate)
             if (interview and candidate):
                 data['interviewName'] = interview.name
