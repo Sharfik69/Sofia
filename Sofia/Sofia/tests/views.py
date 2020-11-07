@@ -86,8 +86,6 @@ def post_the_result(request, id_test):
         # if val:
         #     ResultsTest.objects.create(**val)
 
-
-
     return render(request, 'index.html')
 
 

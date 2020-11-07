@@ -1,7 +1,15 @@
 from django.db import models
 
-from authsystem.models import Tag, Candidate, Education, WorkExperience, Company
+from authsystem.models import Candidate, Education, WorkExperience, Company
 
+class Tag(models.Model):
+    name = models.CharField(
+        max_length=255,
+        primary_key=True
+    )
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
 
 class Vacancy(models.Model):
     id = models.AutoField(
@@ -13,9 +21,27 @@ class Vacancy(models.Model):
         null = False,
         on_delete = models.CASCADE
     )
-    employer = models.ForeignKey(
-        Candidate,
-        verbose_name = 'Что за чел',
-        null = False,
-        on_delete = models.CASCADE
+    name = models.CharField(
+        max_length=255,
+        verbose_name='Название',
+        default='НАЗВАНИЕ'
     )
+    description = models.CharField(
+        max_length=255,
+        verbose_name='Описание',
+        default='ОПИСАНИЕ'
+        
+    )
+    salary = models.CharField(
+        max_length=255,
+        verbose_name='Заработная плата',
+        blank=True
+    )
+    tags = models.ManyToManyField(
+        Tag,
+        blank=True,
+        verbose_name='Теги'
+    )
+    class Meta:
+        verbose_name = 'Вакансия'
+        verbose_name_plural = 'Вакансии'
