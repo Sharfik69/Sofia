@@ -1,0 +1,49 @@
+
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.interview-input--btn {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.center-input--question {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.center-input--answer {
+    width: 25%;
+}
+
+.interview--textarea {
+    resize: none;
+    width: 100%;
+    height: 150px;
+}
+
+
+.main--wrapper {
+    min-height: 100vh;
+}
+
+.main-menu--top {
+    background-color: rgb(38, 38, 38);
+    color: rgb(150, 150, 150);
+}
+.main-menu--top-ul {
+    margin: 0 auto;
+    width: 40%;
+    min-width: 300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 46px;
+}
+li {
+    list-style-type: none;
+}

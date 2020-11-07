@@ -23,5 +23,6 @@ urlpatterns = [
     path('q_test/', include("tests.urls")),
     path('auth/', include('authsystem.urls')),
     path('informpage/', include('inform_page.urls')),
-    path('interview/', include('interview.urls'))
+    path('interview/', include('interview.urls')),
+    path('add_stage/', include('vacancy.urls'))
 ]

@@ -1,0 +1,54 @@
+{% extends "user_page/wrapper.html" %}
+
+{% load static %}
+{{status}}
+
+{% block auth_comp %} {% if status == 2 %}
+    <h3>
+        Компания, с вакансии попадаем сюда и делаем стадии
+    </h3>
+
+    {{vacansy.name}}
+    {{vacansy.description}}
+    {{vacansy.salary}}
+    
+    <div class="stages">
+
+    </div>
+    <br>
+
+    <input type="button" id="add_stage" value="Добавить стадию" onclick="add_stage()">
+    <select id="select_stage">
+        <option value="1">
+            Добавить тест
+        </option>
+        <option value="2">
+            Добавить страницу с информацией
+        </option>
+        <option value="3">
+            Добавить форму для очного собеседования
+        </option>
+        <option value="4">
+            Добавить форму для крупного ответа
+        </option>
+    </select>
+
+
+    <script>
+        var k = 1;
+        function add_stage(){
+            num = $('#select_stage').val();
+            // num = document.getElementById('add_stage').value
+            $.post('{% url 'add_by_number' %}', {'num_order': k, 'num_vac': {{pk_id}}, 'id_stage': num, 'csrfmiddlewaretoken': '{{ csrf_token }}'})
+                        .done(function(response) { 
+                            k += 1;
+                        });
+        }
+    </script>
+
+<!-- Здесь блок авторизированной компании -->
+{% endif %}{% endblock %}
+
+{% block anonimus %} {% if 2 > status %}
+    <h3>Вас здесь быть не должно</h3>
+{% endif %}{% endblock %}
