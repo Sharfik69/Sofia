@@ -47,7 +47,7 @@ class ResultsTest(models.Model):
     id = models.AutoField(
         primary_key=True
     )
-    condidate = models.ForeignKey(
+    candidate = models.ForeignKey(
         Candidate,
         verbose_name='Соискатель',
         null=False,

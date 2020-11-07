@@ -1,42 +1,7 @@
 var divCollection = []
 var countCol = 0
 
-$(document).ready(function() {
-// CSRF code
-    function getCookie(name) {
-        var cookieValue = null;
-        var i = 0;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (i; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    var csrftoken = getCookie('csrftoken');
-
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-    $.ajaxSetup({
-        crossDomain: false, // obviates need for sameOrigin test
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type)) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
-
-});
-
-function cc(elem){
+function addRow(elem){
     console.log(elem.id);
     let chld = $('#btnAns' + elem.id);
     let ln = chld.children().length;
@@ -47,6 +12,10 @@ function cc(elem){
 }
 
 function addColumn(){
+    if(!$('input#savebtn').is(":visible")){
+        console.log("HIDEN");
+        $('input#savebtn').show();
+    }
     $(".collection").append('<div id="quest">'+
         '<h2>Вопрос</h2>'+
         '<textarea id="quest' + countCol + '"></textarea>'+
@@ -55,7 +24,7 @@ function addColumn(){
         '<input type="text" id="ans0" name="a' + countCol + '"/>'+
         '<div><input type="checkbox" name="ans0">'+
         '<label for="ans0">Правильный ответ?</label></div>'+
-        '</div><input id="' + countCol + '" type="button" value="+" onclick="cc(this)"></div><br>');
+        '</div><input id="' + countCol + '" type="button" value="+" onclick="addRow(this)"></div><br>');
     countCol++;
 }
 
@@ -79,17 +48,33 @@ function submitData(id_test){
         j_ans += '"]}';
         console.log(j_ans);
         chld = $('#quest > #btnAns' + i + ' > div > input');
-        let j_is_tr = '{ "ans": ["' + chld.eq(0).is(":checked");
-        for (let j=1;j<ln;j++){
-            j_is_tr += '", "' + chld.eq(j).is(":checked") + ''
+
+        let count_true = 0;
+        let quest_type = 0;
+        let j_is_tr = '';
+        if (ln > 1) {
+            j_is_tr = '{ "ans": ["' + chld.eq(0).is(":checked");
+            for (let j = 1; j < ln; j++) {
+                if (chld.eq(j).is(":checked")) {
+                    count_true++;
+                }
+                j_is_tr += '", "' + chld.eq(j).is(":checked") + ''
+            }
+        }else{
+            j_is_tr = '{ "ans": ["' + $('#quest > #btnAns' + i + ' > input').val();
         }
         j_is_tr += '"]}';
+        if(count_true > 1){
+            quest_type = 1
+        }else if(ln === 1){
+            quest_type = 2
+        }
         console.log(j_is_tr);
         let name = $('div#quest').children('textarea#quest'+i.toString()).val();
         console.log(name, ' - ', '#quest'+i);
         fd.append("quest"+i+".id_test", id_test);
         fd.append("quest"+i+".quest", name);
-        fd.append("quest"+i+".type", 0);
+        fd.append("quest"+i+".type", quest_type);
         fd.append("quest"+i+".jsn_ans", j_ans);
         fd.append("quest"+i+".jsn_is_true", j_is_tr);
     }

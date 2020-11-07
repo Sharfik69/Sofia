@@ -4,8 +4,12 @@
 {% block extrahead %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static '/js/ajax_setup.js' %}"></script>
+{% if isCompany == '1' %}
 <script src="{% static '/js/create_test.js' %}"></script>
-
+{% else %}
+<script src="{% static '/js/testing.js' %}"></script>
+{% endif %}
 
 {% endblock %}
 
@@ -17,13 +21,17 @@
     <div class="collection"></div>
     <input type="button" value="Добавить вопрос" id="AddCol" onclick=addColumn()>
     <br>
-    <input type="button" value="Сохранить тест" onclick=submitData({{ test }})>
+    <input id="savebtn" type="button" value="Сохранить тест" onclick=submitData({{ test }}) style="display: none;">
 {% else %}
 
     <h3>Это соискатель</h3>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+    </div>
     {% for choice in questions %}
-        <div>
+        <div id="quest" style="display: none;">
           <h1>{{ choice.quest }}</h1>
+            <div id="ans_inp">
             {% if choice.type != 2 %}
                 {% for ans in choice.ans %}
                     {% if choice.type == 0 %}
@@ -36,7 +44,10 @@
             {% else %}
                 <input type="text" id="ans" name="{{ choice.quest }}"/><br>
             {% endif %}
-            <input type="button" value="Next"/>
+            </div>
+            <input type="button" value="Назад" id="backbtn" style="display: none;"/>
+            <input type="button" value="Далее" id="nextbtn"/>
+            <input type="button" value="Завершить" id="submitData" style="display: none;" onclick="submitData({{ test }}, {{ vac }}, {{order}})" />
         </div>
     {% endfor %}
 {% endif %}
