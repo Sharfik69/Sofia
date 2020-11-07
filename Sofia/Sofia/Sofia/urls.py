@@ -21,4 +21,5 @@ urlpatterns = [
     path('test/', include('test_system.urls')),
     path('auth/', include('authsystem.urls')),
     path('informpage/', include('inform_page.urls'))
+    path('interview/', include('interview.urls')),
 ]

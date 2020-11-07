@@ -39,7 +39,7 @@ class Candidate(models.Model):
         verbose_name = 'Соискатель'
         verbose_name_plural = 'Соискатели'
     def __str__(self):
-        return 'Логин: {0}'.format(self.user.username)
+        return 'Логин: {0}. Id: {1}'.format(self.user.username, self.user.id)
 
 
 class CandidateForm(ModelForm):
