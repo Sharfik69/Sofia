@@ -181,3 +181,48 @@ textarea:focus, input:focus{
     50%  {color: rgb(140, 140, 140);}
     100% {color: rgb(100, 100, 100);}
 }
+
+.main-menu--top {
+    background-color: rgb(38, 38, 38);
+    color: rgb(150, 150, 150);
+}
+.main-menu--top-ul {
+    margin: 0 auto;
+    width: 40%;
+    min-width: 300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 46px;
+}
+
+li {
+    list-style-type: none;
+}
+.jumbotron {
+    background-color: rgb(228, 231, 235);
+}
+
+.main-menu--top-li:hover {
+    color: rgb(220, 220, 220);
+    cursor: pointer;
+}
+
+.main--wrapper {
+    background-color: white;
+}
+
+.main-content {
+    padding-bottom: 30px;
+}
+
+footer {
+    background-color: rgb(38, 38, 38);
+    color: rgb(220, 220, 220);
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    text-align: left;
+    width: 100%;
+}

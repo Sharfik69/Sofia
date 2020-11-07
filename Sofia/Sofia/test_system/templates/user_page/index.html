@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block extrahead %}
-    <link type='text/css' rel='stylesheet' href={% static "/css/auth-style.css" %}> 
+    <link type='text/css' rel='stylesheet' href='{% static "/css/auth-style.css" %}'>
 {% endblock %}
 
 
@@ -16,23 +16,80 @@
 {% block main %}
     
     {% if username %}
-        <h2>Контент снизу будет виден только авторизированному пользователю</h2>
-        <h2>Текущий пользователь: {{username}} </h2>
-        <form action="/auth/logout">
-            <input type="submit" value="Выйти">
-        </form>
-        {% if status %}
-            <h4>company</h4>
-            <form method="get" action="/test/all_vacancies/">
-                <button type="submit">Посмотреть все вакансии</button>
-            </form>
-            <a href="http://li.nk"><button onlick="return false;">Посмотреть вакансии моей компании</button></a>
-            <a href="http://li.nk"><button onlick="return false;">Создать вакансию</button></a>
-        {% else %}
-            <h4>user</h4>
-            <a href="http://li.nk"><button onlick="return false;">Посмотреть вакансии</button></a>
-            <a href="http://li.nk"><button onlick="return false;">Посмотреть мои вакансии</button></a>
-        {% endif %}
+        <div class="main--wrapper">
+            <div class="main-menu--top">
+                <ul class="main-menu--top-ul">
+                    <li class="main-menu--top-li">пункт 1</li>
+                    <li class="main-menu--top-li">пункт 2</li>
+                    <li class="main-menu--top-li">пункт 3</li>
+                    <li class="main-menu--top-li">
+                        <form action="/auth/logout">
+                            <input type="submit" value="Выйти">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-3">Привет, {{username}}</h1>
+                    <p>
+                        Тут много буков о том какой чудесный и замечательный у нас сайт и какая крутая команда разработчиков. Тут много буков о том какой чудесный и замечательный у нас сайт и какая крутая команда разработчиков. Тут много буков о том какой чудесный и замечательный у нас сайт и какая крутая команда разработчиков.
+                    </p>
+                    <p><a class="btn btn-primary btn-lg" href="#" role="button">Уйти отсюдова >></a></p>
+<!--                    <h2>Контент снизу будет виден только авторизированному пользователю</h2>-->
+
+<!--                    <h2>Текущий пользователь: {{username}} </h2>-->
+
+                </div>
+
+            </div>
+            <div class="container main-content">
+                <div class="row">
+                    {% if status %}
+                        <div class="col-md-4">
+                            <h2>Просмотр всех вакансий</h2>
+                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                            <p><a class="btn btn-secondary" href="/test/all_vacancies/" role="button">View details »</a></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h2>Вакансии моей компании</h2>
+                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                            <p><a class="btn btn-secondary" href="/test/my_vac/" role="button">View details »</a></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h2>Добавить новую вакансию</h2>
+                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                            <p><a class="btn btn-secondary" href="/test/create_vac/" role="button">View details »</a></p>
+                        </div>
+                    {% else %}
+                        <div class="col-md-6">
+                            <h2>Просмотр всех вакансий</h2>
+                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                            <p><a class="btn btn-secondary" href="/test/all_vacancies/" role="button">View details »</a></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h2>Мои вакансии</h2>
+                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                            <p><a class="btn btn-secondary" href="/test/my_vac/" role="button">View details »</a></p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+<!--            {% if status %}-->
+<!--            <h4>company</h4>-->
+<!--            <form method="get" action="/test/all_vacancies/">-->
+<!--                <button type="submit">Посмотреть все вакансии</button>-->
+<!--            </form>-->
+<!--            <a href="/test/my_vac"><button onlick="return false;">Посмотреть вакансии моей компании</button></a>-->
+<!--            <a href="/test/create_vac"><button onlick="return false;">Создать вакансию</button></a>-->
+<!--            {% else %}-->
+<!--            <h4>user</h4>-->
+<!--            <a href="/test/all_vacancies/"><button onlick="return false;">Посмотреть вакансии</button></a>-->
+<!--            <a href="/test/my_vac"><button onlick="return false;">Посмотреть мои вакансии</button></a>-->
+<!--            {% endif %}-->
+        </div>
+
     {% else %}
         <div  class="text-center not_auth--wrapper flex-column">
             <div class="need_auth">
