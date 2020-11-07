@@ -50,3 +50,10 @@ class Vacancy(models.Model):
     class Meta:
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансии'
+
+
+class users_vacancy(models.Model):
+    vacancy = models.ForeignKey(Vacancy,verbose_name = 'Вакансия юзера',
+        null = False,
+        on_delete = models.CASCADE)
+    candidate = models.ForeignKey(Candidate, verbose_name='Какой юзер', null=False, on_delete = models.CASCADE)

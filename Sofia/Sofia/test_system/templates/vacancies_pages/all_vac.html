@@ -15,7 +15,7 @@
         <form action="/auth/logout">
             <input type="submit" value="Выйти">
         </form>
-        {% if status %}
+        {% if status == 2 %}
             <h4>company</h4>
             
             <a href="/test/all_vacancies"><button>Посмотреть все вакансии</button></a></form>
@@ -26,10 +26,22 @@
             {% for vac in vacancies %}
                 <p>{{vac.name}} || {{vac.company}}</p>
             {% endfor %}
-        {% else %}
+        {% elif status == 1 %}
             <h4>user</h4>
             <a href="/test/all_vacancies"><button onlick="return false;">Посмотреть вакансии</button></a>
             <a href="/test/my_vac"><button onlick="return false;">Посмотреть мои вакансии</button></a>
+            {% for vac in vacancies %}
+                <p>{{vac.name}} || {{vac.company}} || {{vac.pk}}</p>
+                <button onclick="add_to_my_courses({{vac.pk}})">Записаться на вакансию</button>
+            {% endfor %}
+            <script>
+                function add_to_my_courses(id_cours){
+                    $.post('{% url 'add_vac_to_usr' %}', {'id_usr': {{user_.pk}}, 'vac_id': id_cours, 'csrfmiddlewaretoken': '{{ csrf_token }}'})
+                        .done(function(response) { 
+                            alert('zalua')
+                        });
+                }
+            </script>
         {% endif %}
     {% else %}
         <form action="/auth/login">
