@@ -38,7 +38,31 @@ def create_stage(request, id_vac):
             d['status'] = 0
         else:
             d['vacansy'] = x
-
+    try:  
+        test_a = Test.objects.filter(vacancy=x)
+    except Exception:
+        test_a = None
+        pass
+    try:
+        text_a = Text.objects.filter(vacancy_id=x)
+    except Exception:
+        text_a = None
+        pass
+    try:
+        interview_a = Interview.objects.filter(vacancies=x)
+    except Exception:
+        interview_a = None
+        pass
+    try:
+        open_form_a = OpenForm.objects.filter(vacancy_id=x)
+    except Exception:
+        open_form_a = None
+        pass
+    d['Tests'] = test_a
+    d['Texts'] = text_a
+    d['Interviewes'] = interview_a
+    d['OpenForms'] = open_form_a
+    
     return render(request, 'index.html', d)
 
 def add_by_number(request):

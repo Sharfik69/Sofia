@@ -36,12 +36,38 @@
 
     <script>
         var k = 1;
+        $(function(){
+            {% for a in Tests %}
+                $(".stages").append('<div class="Test"> Тест </div>')
+            {% endfor %}
+            {% for a in Texts %}
+                $(".stages").append('<a href="/informpage/page/{{a.pk}}"><div class="Test"> Страница с информацией {{a.pk}}</div></a>')
+            {% endfor %}
+            {% for a in Interviewes %}
+                $(".stages").append('<a href="/interview/new/?interview={{a.pk}}"><div class="Test"> Форма для очного собеседования {{a.pk}}</div></a>')
+            {% endfor %}
+            {% for a in OpenForms %}
+                $(".stages").append('<a href="/open-form/edit-open-form/{{a.pk}}/"><div class="Test"> Форма для крупного ответа {{a.pk}} </div></a>')
+            {% endfor %}
+        });
         function add_stage(){
             num = $('#select_stage').val();
             // num = document.getElementById('add_stage').value
             $.post('{% url 'add_by_number' %}', {'num_order': k, 'num_vac': {{pk_id}}, 'id_stage': num, 'csrfmiddlewaretoken': '{{ csrf_token }}'})
                         .done(function(response) { 
                             k += 1;
+                            if (num == 1) {
+                                $(".stages").append('<div class="Test"> Тест </div>')
+                            }
+                            else if (num == 2) {
+                                $(".stages").append('<div class="Test"> Страница с информацией </div>')
+                            }
+                            else if (num == 3) {
+                                $(".stages").append('<div class="Test"> Форма для очного собеседования </div>')
+                            }
+                            else if (num == 4){
+                                $(".stages").append('<div class="Test"> Форма для крупного ответа</div>')
+                            }
                         });
         }
     </script>

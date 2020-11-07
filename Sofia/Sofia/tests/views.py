@@ -29,7 +29,7 @@ def take_the_test(request, id_test):
             if str(question.img) != "NUL":
                 img_url = str(question.img)[6:]
             else:
-                img_url = "/static/default.jpg"
+                img_url = "static/default.png"
             res.append({'quest': question.quest, 'ans': ans, 'type': question.type, 'img': img_url})
         print(res)
         return render(request, 'test_page.html',
