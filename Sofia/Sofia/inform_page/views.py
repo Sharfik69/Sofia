@@ -7,7 +7,7 @@ from vacancy.models import Vacancy
 from .models import Text
 import json 
 
-def index(request):
+def index(request, id_vac):
     d = {}
     if not request.user.is_anonymous:
         d['username'] = auth.get_user(request).username
@@ -15,24 +15,35 @@ def index(request):
         try:
             d['status'] = Candidate.objects.get(user=request.user.id)
             check = True
-            d['status'] = False
+            d['status'] = 1
         except Exception:
-            d['status'] = 'Error'
+            d['status'] = 0
         if not check:
             try:
                 d['status'] = Company.objects.get(user=request.user.id)
+                check = True
+                d['status'] = 2
             except Exception:
-                d['status'] = False
-    
-
-    return render(request, 'index.html', d)
+                d['status'] = 0
+    if d['status'] == 2:
+        try:
+            x = Text.objects.get(pk=id_vac)
+            d['text'] = x
+            d['ID'] = x.vacancy_id.pk
+            d['ID_IMG'] = id_vac
+            print(d['ID'])
+        except Exception:
+            x = None
+    return render(request, 'index1.html', d)
 
 def add_text(response):
     text = response.POST.get('text_for_user', '')
     status = response.POST.get('id_vac', '')
-    num_stage = response.POST.get('num', '')
-    a = Vacancy.objects.get(pk=1)
-    q = Text.create(text, a)
+    num = response.POST.get('num', '')
+    print(status)
+    a = Vacancy.objects.get(pk=int(status))
+    q = Text.objects.get(pk=num)
+    q.html_text = text
     q.save()
     return HttpResponse('ok')
 

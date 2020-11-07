@@ -9,9 +9,9 @@ function func(){
         processData: false
     }).done(function (result) {
         if (result["status"] == "Ok"){
-            $(".status").append("<div>Ваш ответ успешно отправлен</div>");       
+            alert("Создали");      
         }else{
-            $(".status").append("<div>Что-то пошло не так</div>");
+            alert("что-то пошло не так");
         }
     })
     .fail(function (jqXHR, exception) {
