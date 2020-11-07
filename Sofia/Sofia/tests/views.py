@@ -28,13 +28,13 @@ def take_the_test(request, id_test):
             res.append({'quest': question.quest, 'ans': ans, 'type': question.type})
         print(res)
 
-        return render(request, 'index.html',
+        return render(request, 'test_page.html',
                       {'test': str(queryset_test.id),
                        'vac': str(queryset_test.vacancy.id),
                        'questions': res,
                        'order': str(queryset_test.order),
                        'isCompany': '0'})
-    return render(request, 'index.html',
+    return render(request, 'test_page.html',
                   {'test': id_test, 'questions': '',
                    'isCompany': '1'})
 
@@ -65,7 +65,7 @@ def post_the_test(request, id_test):
         if val:
             TestQuestion.objects.create(**val)
     # return redirect('../cd/' + str(id_tst))
-    return render(request, 'index.html')
+    return render(request, 'test_page.html')
 
 
 def post_the_result(request, id_test):
@@ -97,6 +97,6 @@ def post_the_result(request, id_test):
         if val:
             ResultsTest.objects.create(**val)
 
-    return render(request, 'index.html')
+    return render(request, 'test_page.html')
 
 
