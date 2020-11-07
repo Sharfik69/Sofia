@@ -1,6 +1,36 @@
 var divCollection = []
 var countCol = 0
 
+$(document).ready(function() {
+    let ln_qst = $('input#exist_quest').length;
+    for (let i=0;i<ln_qst;i++){
+        let ln = $('div#answ').eq(i).children().length / 2;
+        let elem = $('<div id="btnAns' + countCol + '">')
+        let div_str = '';
+        for(let j=0;j<ln;j++){
+            let ch = ''
+            if ($('div#answ_tru').eq(i).children('input').eq(j).val() === 'true'){
+                ch = 'checked'
+            }
+            div_str +=' <input type="text" id="ans' + ln + '" name="a' + elem.id + '" value="' + $('div#answ').eq(i).children('input').eq(j).val() + '"/>'+
+                        '<div><input type="checkbox" name="ansl' + ln + '"' + ch + '>'+
+                        '<label for="ansl' + ln + '">Правильный ответ?</label></div>';
+        }
+        console.log(div_str);
+        $(".collection").append('<div id="quest" style="margin:15px" class="col-md-2">'+
+        '<hr><h2>Вопрос</h2>'+
+        '<input type="file" id="selectedFile' + countCol + '" style="display: none;">'+
+        '<input type="button" id="selectedFileBtn' + countCol + '" value="Загрузить картинку..." onclick="document.getElementById(\'selectedFile' + countCol + '\').click();" >'+
+        '<textarea id="quest' + countCol + '">' + $('input#exist_quest').eq(i).val() + '</textarea>'+
+        '<br><h2>Ответ</h2>'+
+        '<div id="btnAns' + countCol + '">'+
+        div_str+
+        '</div><input id="' + countCol + '" type="button" value="Добавить ответ" onclick="addRow(this)"><br>'+
+        '<input id="dc' + countCol + '" type="button" value="Удалить вопрос" id="DeleteCol" onclick=delColumn(this)><br></div>');
+        countCol++;
+    }
+});
+
 function addRow(elem){
     console.log(elem.id);
     let chld = $('#btnAns' + elem.id);
@@ -57,7 +87,6 @@ function addColumn(){
 
 function submitData(id_test, order){
     //console.log($('#quest').children('#quest0').val());
-
     let ln_qst = $('.collection > div#quest').length;
     console.log('len #quest', ln_qst);
 

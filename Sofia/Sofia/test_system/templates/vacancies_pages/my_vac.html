@@ -92,9 +92,9 @@
         <form action="/auth/logout">
             <input type="submit" value="Выйти">
         </form>
-        {% if status %}
+        {% if status == 2 %}
             <h4>company</h4>
-            
+
             <a href="/test/all_vacancies"><button>Посмотреть все вакансии</button></a></form>
             <a href="/test/my_vac"><button onlick="return false;">Посмотреть вакансии моей компании</button></a>
             <a href="/test/create_vac"><button onlick="return false;">Создать вакансию</button></a>
@@ -103,10 +103,12 @@
             {% for vac in vacancies %}
                 <p>{{vac.name}} || {{vac.company}}</p>
             {% endfor %}
-        {% else %}
-            <h4>user</h4>
+        {% elif status == 1 %}
             <a href="http://li.nk"><button onlick="return false;">Посмотреть вакансии</button></a>
             <a href="http://li.nk"><button onlick="return false;">Посмотреть мои вакансии</button></a>
+            {% for vac in vacancies %}
+                <p>{{vac.name}} || {{vac.company}}</p>
+            {% endfor %}
         {% endif %}
     {% else %}
         <form action="/auth/login">

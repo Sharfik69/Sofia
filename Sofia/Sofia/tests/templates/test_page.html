@@ -18,10 +18,29 @@
 <div class="container">
 {% if isCompany == '1' %}
     <h1>Создание теста</h1>
+    <div id="existFiels" hidden>
+    {% for choice in exist_field %}
+        <input id="exist_quest" type="text" value="{{ choice.quest }}"/><br>
+        <div id="answ">
+        {% for ans in choice.ans %}
+            <input id="exist_ans" type="text" value="{{ans}}"/><br>
+        {% endfor %}
+        </div>
+        <div id="answ_tru">
+        {% for ans_tr in choice.ans_tr %}
+            <input id="exist_ans_tr" type="text" value="{{ans_tr}}"/><br>
+        {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
     <div class="collection row"></div>
     <input type="button" value="Добавить вопрос" id="AddCol" onclick=addColumn()>
     <br>
+    {% if exist_check == '0' %}
     <input id="savebtn" type="button" value="Сохранить тест" onclick="submitData({{ test }}, {{ order }})" style="display: none;">
+    {% else %}
+    <input id="savebtn" type="button" value="Сохранить тест" onclick="submitData({{ test }}, -5)" style="display: none;">
+    {% endif %}
 {% else %}
     <h1>Пройдите тест</h1>
     <div class="progress" style="margin-top: 30px; margin-bottom: 20px">
