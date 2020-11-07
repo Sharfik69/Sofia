@@ -49,18 +49,10 @@ def sign_up(request):
             auth.login(request, new_user)
             files = request.FILES
             if whois == '1':
-                if len(files) == 0:
-                    file_ = ''
-                else:
-                    file_ = files['cv']
                 empl = Candidate.create(new_user, request.POST.get('phone', ''),
                 request.POST.get('addition_contacts', ''), request.POST.get('description', ''), file_)
                 empl.save()
             else:
-                if len(files) == 0:
-                    file_ = ''
-                else:
-                    file_ = files['img-logo']
                 comp = Company.create(new_user, request.POST.get('name_company', ''), request.POST.get('FIO_CEO', ''),
                     request.POST.get('Phone_CEO', ''), request.POST.get('Email_CEO', ''), request.POST.get('FIO_Contact', ''), request.POST.get('Phone_Contact', ''), 
                     request.POST.get('Email_Contact', ''),

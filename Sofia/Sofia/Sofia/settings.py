@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'open_form',
     'test_system',
     'tests'
+    'inform_page',
+    'interview'
 ]
 
 MIDDLEWARE = [

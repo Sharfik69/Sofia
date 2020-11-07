@@ -19,7 +19,9 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', include('test_system.urls')),
-    path('auth/', include('authsystem.urls')),
     path('open-form/', include('open_form.urls')),
     path('q_test/', include("tests.urls")),
+    path('auth/', include('authsystem.urls')),
+    path('informpage/', include('inform_page.urls')),
+    path('interview/', include('interview.urls'))
 ]

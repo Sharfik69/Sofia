@@ -1,0 +1,33 @@
+{% extends "user_page/wrapper.html" %}
+
+{% load static %}
+
+{% block extrahead %}
+    <link type='text/css' rel='stylesheet' href={% static "/css/interview-style.css" %}> 
+    <script src={% static "/js/interview-functions.js" %}></script>
+{% endblock %}
+
+{% block interview %}
+
+    <div class="new_interview">
+        <form name="interviewQuestions" id = "interviewQuestions">
+            <input name="idInterview" value="{{idInterview}}" hidden>
+            <input name="interviewName" placeholder="Введите название" value="{{interviewName}}">
+            {% for item in questions %}
+                <div id="interview_question">
+                    <input name="interview_question[{{item.num}}]" placeholder = 'Введите вопрос' class='center-input' value="{{item.questionText}}">
+                    <br>
+                    <div id="tags[{{item.num}}]" class="quick_answer">
+                        {% for tag in item.tags %}
+                            <input name="tags[{{tag.num}}]" placeholder = 'Введите быстрый ответ' value="{{tag.text}}">
+                        {% endfor %}
+                    </div>
+                    <input name="addTags[{{item.num}}]" type="button" onclick="interviewAddTags({{item.num}})" value='Добавить быстрый ответ' class='center-input'><br><br>
+                </div>
+            {% endfor %}
+        </form>
+        <button id="interview-add_question" class='center-input'>Добавить вопрос</button>
+        <button id="interview-save_question" class='center-input'>Сохранить</button>
+    </div>
+
+{% endblock %} 
