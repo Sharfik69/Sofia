@@ -1,28 +1,34 @@
 var interviewCntTags = [], interviewCnt = 0;
 
 function interviewAddTags(question, text = "") {
-    var divTags = document.getElementById('tags[' + question + ']');
+    //var divTags = document.getElementById('tags[' + question + ']');
+    var divTags = $('div#tags\\[' + question + '\\]');
+    console.log($('div#tags[' + question + ']'), 'tags[' + question + ']');
     var name = 'tags[' + question + ']';
-    divTags.innerHTML += "<input name='" + name + "' placeholder = 'Введите быстрый ответ' value='" + text + "'>";
+    divTags.append("<input name='" + name + "' placeholder = 'Введите быстрый ответ' value='" + text + "' class='center-input--answer'>");
+    //divTags.innerHTML += "<input name='" + name + "' placeholder = 'Введите быстрый ответ' value='" + text + "'>";
     interviewCntTags[question]++;
 
 }
 
 function addQuestion(name = "", tags = []) {
     interviewCntTags.push(0);
-    form_ = document.forms.interviewQuestions;
+    //form_ = document.forms.interviewQuestions;
+    form_ = $('form#interviewQuestions');
 
     strHtml = "";
     strHtml += "<div id='interview_question'>";
 
-    strHtml += "<input name='interview_question[" + interviewCnt + "]' placeholder = 'Введите вопрос' class='center-input'><br>";
+    strHtml += "<input name='interview_question[" + interviewCnt + "]' placeholder = 'Введите вопрос' class='center-input--question'><br>";
 
 
     strHtml += "<div id='tags[" + interviewCnt + "]' class='quick_answer'></div>";
     strHtml += "<input name='addTags[" + interviewCnt + "]' type='button' onclick='interviewAddTags(" + interviewCnt + ")' \
-                    value='Добавить быстрый ответ' class='center-input'><br><br>";
+                    value='Добавить быстрый ответ' class='center-input btn btn-lg btn-secondary'><br><br>";
     strHtml += "</div>";
-    form_.innerHTML += strHtml;
+    //form_.innerHTML += strHtml;
+    form_.append(strHtml);
+
     for (var i = 0; i < tags.length; i++) {
         interviewAddTags(interviewCnt, tags[i]);
     }
@@ -48,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 contentType: false,
                 processData: false
             }).done(function (result) {
-                console.log(result)
+                alert(result);
             });
         }
     }
@@ -64,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 contentType: false,
                 processData: false
             }).done(function (result) {
-                console.log(result)
+                alert(result);
             });
         }
     }

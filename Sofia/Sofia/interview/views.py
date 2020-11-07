@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db import models
+from django.http import HttpResponse
 
 from vacancy.models import Vacancy
 from .models import Interview, InterviewQuestion, InterviewTags, InterviewAnswer
@@ -104,7 +105,7 @@ def ajax_new_interview(request):
                 new_tag.save()
         
     # print(list(Vacancy.objects.all())[0].id)
-    return render(request, 'new-interview.html', {})
+    return HttpResponse("Сохранено")
 
 def ajax_answer_interview(request):
     data = {}
@@ -132,8 +133,9 @@ def ajax_answer_interview(request):
                         answer = arr[key][0]
                     )
                     ans.save()
+                
     
-    return render(request, 'answer-interview.html', data)
+    return HttpResponse("Сохранено")
 
 
 
@@ -145,10 +147,13 @@ def get_form_for_interview(request):
             id_interview = request.GET['interview']
         if 'candidate' in request.GET:
             id_candidate = request.GET['candidate']
+
         if (id_candidate and id_interview):
             data['idInterview'] = id_interview
             interview = Interview.objects.get(id = id_interview)
+            print(id_candidate)
             candidate = Candidate.objects.get(id = id_candidate)
+            print(candidate)
             if (interview and candidate):
                 data['interviewName'] = interview.name
                 arr = []
@@ -167,9 +172,9 @@ def get_form_for_interview(request):
                     ans_ = InterviewAnswer.objects.filter(
                         question=question,
                         respondent=candidate
-                    )[0]
+                    )
                     if (ans_):
-                        ans = ans_.answer
+                        ans = ans_[0].answer
 
                     arr.append({
                         'num': cnt,

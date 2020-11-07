@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'vacancy',
     'inform_page',
     'interview',
+    'tests',
 ]
 
 MIDDLEWARE = [
