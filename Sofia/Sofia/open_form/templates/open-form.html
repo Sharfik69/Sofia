@@ -18,6 +18,13 @@
 
 {% block main %}
 
+    {% if not username %}
+        <script type="text/javascript">
+            location="http://localhost:8000/test/";
+        </script>
+    {% endif %}
+    
+
 <div class = "description">
     {{description}}
 </div>

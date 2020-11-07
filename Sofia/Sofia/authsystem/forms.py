@@ -12,7 +12,7 @@ class Company_new_form(forms.Form):
     Phone_Contact = forms.CharField(label = 'Телефон конактного лица', widget=forms.TextInput(attrs={'type': 'tel'}))
     Email_Contact = forms.CharField(label = 'Почта контактного лица', widget=forms.TextInput(attrs={'type': 'email'}))
     description = forms.CharField(label = 'О компании', widget=forms.Textarea)
-    img_logo = forms.ImageField()
+    img_logo = forms.FileField()
     place = forms.CharField(label='Адрес компании', max_length=500)
 
 

@@ -131,7 +131,7 @@ class Company(models.Model):
         verbose_name='О компании'
     )
     #TODO: Сделать путь куда грущзить лого компании
-    img_logo = models.ImageField(upload_to='', blank=True, verbose_name='Логотип компании')
+    img_logo = models.ImageField(upload_to='media/', blank=True, verbose_name='Логотип компании')
     place = models.CharField(
         verbose_name='Адрес компании',
         max_length=300

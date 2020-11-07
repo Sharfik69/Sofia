@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authsystem',
     'vacancy',
-    'open_form'
-    'test_system',
+    'open_form',
+    'test_system'
 ]
 
 MIDDLEWARE = [

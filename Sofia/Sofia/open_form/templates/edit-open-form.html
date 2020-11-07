@@ -1,0 +1,64 @@
+{% extends "user_page/wrapper.html" %}
+
+{% load static %}
+
+{% block extrahead %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src = {% static "/js/edit-form-index.js" %}></script>
+    <link href = {% static "/css/edit-form-index.css" %} type = "text/css" rel = "stylesheet">
+    
+
+{% endblock %}
+
+{% block title %}
+
+    Страница редактирования открытой формы
+
+{% endblock %} 
+
+{% block main %}
+
+    {% if not isCompany %}
+        <script type="text/javascript">
+            location="http://localhost:8000/test/";
+        </script>
+    {% endif %}
+    
+
+<div class = "description">
+    {{description}}
+</div>
+
+<div class = "answer">
+    
+    <form id = "openFormAns" method = "POST" action = "/open-form/write_openForm_ans/" name="myform">
+        {% csrf_token %}
+        <input type="hidden" name = "id" value = {{id}}>
+        <textarea id = "textarea" rows = "10" cols = "60" name = "answer" placeholder="Дайте здесь развернутый ответ"> 
+            {{answer}}
+        </textarea>
+        <input type = "button" onclick = func(); value = "Сохранить">
+    </form>
+</div>
+
+<div class = "status">
+
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <textarea rows = "10" cols = "60" name = "tmpAnswer" id = "tmpAnswer">
+
+      </textarea>
+      <input type ="button" onclick= saveTmp() value = "saveTmp">
+    </div>
+  
+  </div>
+    
+
+
+{% endblock %} 
