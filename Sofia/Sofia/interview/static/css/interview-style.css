@@ -1,15 +1,77 @@
 .center-input {
-    width: 250px;
     margin: 0 auto;
 }
 
 .quick_answer {
-    width: 600px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 20px 0;
 }
 
 .new_interview {
     padding-top: 20px;
     width: 860px;
     margin: 0 auto;
+}
+
+footer {
+    background-color: rgb(38, 38, 38);
+    color: rgb(220, 220, 220);
+    height: 45px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    padding-right: 20px;
+    margin-top: 100px;
+}
+
+.main--wrapper {
+    min-height: 100vh;
+}
+
+.main-menu--top {
+    background-color: rgb(38, 38, 38);
+    color: rgb(150, 150, 150);
+}
+.main-menu--top-ul {
+    margin: 0 auto;
+    width: 40%;
+    min-width: 300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 46px;
+}
+li {
+    list-style-type: none;
+}
+
+.interview-name {
+    width: 100%;
+    min-width: 250px;
+    margin-bottom: 50px;
+    border: 0;
+    border-bottom: 1px solid rgb(150, 150, 150);
+    text-align: center;
+    font-size: 25px;
+}
+
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.interview-input--btn {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.center-input--question {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.center-input--answer {
+    width: 25%;
 }

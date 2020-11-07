@@ -9,12 +9,35 @@
 
 {% block interview %}
 
-    <div class="new_interview">
+<div class="main--wrapper">
+    <div class="main-menu--top">
+        <ul class="main-menu--top-ul">
+            <li class="main-menu--top-li">пункт 1</li>
+            <li class="main-menu--top-li">пункт 2</li>
+            <li class="main-menu--top-li">пункт 3</li>
+            <li class="main-menu--top-li">
+                <form action="/auth/logout">
+                    <input type="submit" value="Выйти">
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Создание интервью</h1>
+            <p>
+                Инструкция инструкция инструкция инструкция инструкция инструкция инструкция инструкция инструкция
+            </p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Уйти отсюдова >></a></p>
+        </div>
+
+    </div>
+    <div class="container main-content">
         <form name="interviewQuestions" id = "interviewQuestions">
             <input name="idInterview" value="{{idInterview}}" hidden>
-            <input name="interviewName" placeholder="Введите название" value="{{interviewName}}">
+            <input name="interviewName" class="interview-name" placeholder="Введите название" value="{{interviewName}}">
             {% for item in questions %}
-                <div id="interview_question">
+                <div id="interview_question text-center">
                     <input name="interview_question[{{item.num}}]" placeholder = 'Введите вопрос' class='center-input' value="{{item.questionText}}">
                     <br>
                     <div id="tags[{{item.num}}]" class="quick_answer">
@@ -23,11 +46,22 @@
                         {% endfor %}
                     </div>
                     <input name="addTags[{{item.num}}]" type="button" onclick="interviewAddTags({{item.num}})" value='Добавить быстрый ответ' class='center-input'><br><br>
-                </div>
+                </div>  
             {% endfor %}
         </form>
-        <button id="interview-add_question" class='center-input'>Добавить вопрос</button>
-        <button id="interview-save_question" class='center-input'>Сохранить</button>
+        <div class="text-center">
+            <button id="interview-add_question" class='btn btn-lg btn-secondary interview-input--btn center'>Добавить вопрос</button>
+        </div>
+        
+        <div class="text-center">
+            <button id="interview-save_question" class='btn btn-primary btn-lg interview-input--btn'>Сохранить</button>
+        </div>
+        
     </div>
+</div>
 
+    
+    <footer>
+        ©vsemi_lubimaya_komanda, 2020
+    </footer>
 {% endblock %} 

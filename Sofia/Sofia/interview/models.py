@@ -23,7 +23,7 @@ class Interview(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return self.name + " : " + str(self.id)
 
     class Meta:
         verbose_name = 'Очное собеседование'
@@ -47,7 +47,7 @@ class InterviewQuestion(models.Model):
         verbose_name='Номер вопроса'
     )
     def __str__(self):
-        return self.question
+        return self.question + " : " + self.id
         
     class Meta:
         verbose_name = 'Вопрос собеседования'

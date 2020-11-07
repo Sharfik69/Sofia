@@ -222,7 +222,7 @@ footer {
     height: 45px;
     display: flex;
     align-items: center;
-    padding-left: 10px;
-    text-align: left;
+    flex-direction: row-reverse;
+    padding-right: 20px;
     width: 100%;
 }
