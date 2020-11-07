@@ -20,6 +20,16 @@ function progressStep(shift, step){
 }
 
 $(document).ready(function() {
+
+    var mp = 150;
+
+    var particleColors = {
+        colorOptions: ["DodgerBlue", "OliveDrab", "Gold", "pink", "SlateBlue", "lightblue", "Violet", "PaleGreen", "SteelBlue", "SandyBrown", "Chocolate", "Crimson"],
+        colorIndex: 0,
+        colorIncrementer: 0,
+        colorThreshold: 10
+    }
+
     let elem = $('div#quest');
     // elem.hide();
     len_quest = elem.length;
@@ -111,7 +121,6 @@ function submitData(id_test, id_vacancy, order){
     fd.append('order', order);
 
     console.log(id_test, id_vacancy, order);
-
     $.ajax({
       type: "POST",
       url: "/q_test/cd_post/" + id_test + "",
@@ -122,4 +131,5 @@ function submitData(id_test, id_vacancy, order){
     }).done(function (result){
 
     });
+    $('#startConfetti').trigger('click');
 }

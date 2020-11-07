@@ -45,6 +45,11 @@ class TestQuestion(models.Model):
     jsn_is_true = models.TextField(
         verbose_name='Какие варианты ответа верны?',
     )
+    img = models.ImageField(
+        verbose_name="Картинка",
+        upload_to="tests/media/",
+        blank=True,
+    )
 
     class Meta:
         verbose_name = "Вопрос"

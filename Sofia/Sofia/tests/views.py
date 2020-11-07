@@ -25,6 +25,7 @@ def take_the_test(request, id_test):
             ans = []
             if question.type != 2:
                 ans = list(json.loads(question.jsn_ans)['ans'])
+
             res.append({'quest': question.quest, 'ans': ans, 'type': question.type})
         print(res)
 
@@ -61,9 +62,12 @@ def post_the_test(request, id_test):
         val['type'] = values['quest' + str(i) + '.type']
         val['jsn_ans'] = values['quest' + str(i) + '.jsn_ans']
         val['jsn_is_true'] = values['quest' + str(i) + '.jsn_is_true']
+        val['img'] = values['quest' + str(i) + '.img']
+
         print(val)
         if val:
-            TestQuestion.objects.create(**val)
+            obj = TestQuestion.objects.create(**val)
+            obj.save()
     # return redirect('../cd/' + str(id_tst))
     return render(request, 'test_page.html')
 

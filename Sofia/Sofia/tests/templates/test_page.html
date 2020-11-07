@@ -5,6 +5,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{% static '/js/ajax_setup.js' %}"></script>
+
 {% if isCompany == '1' %}
 <script src="{% static '/js/create_test.js' %}"></script>
 {% else %}
@@ -15,18 +16,19 @@
 
 {% block login %}
 <div class="container">
-
 {% if isCompany == '1' %}
-    <h3>Это компания => редачим</h3>
-    <div class="collection"></div>
+    <h1>Создание теста</h1>
+    <div class="collection row"></div>
     <input type="button" value="Добавить вопрос" id="AddCol" onclick=addColumn()>
     <br>
     <input id="savebtn" type="button" value="Сохранить тест" onclick=submitData({{ test }}) style="display: none;">
 {% else %}
-
-    <h3>Это соискатель</h3>
-    <div class="progress">
+    <h1>Пройдите тест</h1>
+    <div class="progress" style="margin-top: 30px; margin-bottom: 20px">
       <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+    </div>
+    <div style="width: 200px; height: 200px;">
+
     </div>
     {% for choice in questions %}
         <div id="quest" style="display: none;">
@@ -51,5 +53,7 @@
         </div>
     {% endfor %}
 {% endif %}
+    <input type="button" id="startConfetti" hidden>
+    <script src="{% static '/js/plugin/jquery_confetti.js' %}"></script>
 </div>
 {% endblock %}
