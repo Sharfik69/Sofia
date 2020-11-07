@@ -1,5 +1,11 @@
 {% extends "user_page/wrapper.html" %}
 
+{% load static %}
+
+{% block extrahead %}
+    <link type='text/css' rel='stylesheet' href={% static "/css/auth-style.css" %}> 
+{% endblock %}
+
 {% block signup %}
 <script>
     var d = false;
@@ -7,47 +13,80 @@
         $(".employer").show();
         $(".company").hide();
         d = false;
-    });
-    function change() {
-        if (d) {
-            $(".employer").show();
-            $(".company").hide();
-            d = false;
-            $("#inform_about_layer").text('Я работодатель');
-        }
-        else {
+        $(".employer--btn").click(function(){
             $(".employer").hide();
             $(".company").show();
-            $("#inform_about_layer").text('Я ищу работу');
+            $(".registration--block-verification").hide();
+            $(".employer--btn").css("animation-name", "new-white");
+            $(".employer--btn").css("color", "white");
+
+            $(".company--btn").css("animation-name", "new-black");
+            $(".company--btn").css("color", "rgb(100, 100, 100)");
+
             d = true;
-        }
-    }
+        });
+        $(".company--btn").click(function() {
+            $(".registration--block-verification").show();
+            $(".employer").show();
+            $(".company").hide();
+            $(".company--btn").css("animation-name", "new-white");
+            $(".company--btn").css("color", "white");
+
+            $(".employer--btn").css("animation-name", "new-black");
+            $(".employer--btn").css("color", "rgb(100, 100, 100)");
+
+            d = false;
+        })
+    });
 </script>
-<button id = "Поменять тип регистрации" onclick="change()">Поменять тип регистрации</button>
-<p id = 'inform_about_layer'>Я работодатель</p>
-<div class="employer">
-    <form id="login" method="POST" action="/auth/registration/">    
-        {% csrf_token %}
-        {{ form_for_company.as_ul }}
-        <input type="hidden" name="whois" id="whois" value="2"> 
-        <input type="submit" name="log" id="log" value="Зарегестрироваться">     
-        <br><br>    
-    </form>  
+
+<div class="text-center auth--wrapper flex-column">
+    <div class="inform_about_layer">
+        <div class="employer--btn">
+            <p>Я ищу работу</p>
+        </div>
+        <div class="company--btn">
+            <p>Я - работодатель</p>
+        </div>
+    </div>
+    <!-- <p id = 'inform_about_layer'>Я - работодатель</p> -->
+    <div class="registration--block-verification">
+        <svg style="height: 20px; width: 20px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:#101820;}</style></defs><title/><g data-name="Layer 58" id="Layer_58"><path class="cls-1" d="M16,26a2,2,0,1,1,2-2A2,2,0,0,1,16,26Zm0-2Z"/><path class="cls-1" d="M16,20a1,1,0,0,1-1-1V11a1,1,0,0,1,2,0v8A1,1,0,0,1,16,20Z"/><path class="cls-1" d="M27.78,30H4.22a3.19,3.19,0,0,1-2.77-1.57,3.13,3.13,0,0,1-.06-3.13L13.17,3.67a3.23,3.23,0,0,1,5.66,0L30.61,25.3a3.13,3.13,0,0,1-.06,3.13A3.19,3.19,0,0,1,27.78,30ZM16,4a1.18,1.18,0,0,0-1.07.63L3.15,26.25a1.12,1.12,0,0,0,0,1.16,1.19,1.19,0,0,0,1,.59H27.78a1.19,1.19,0,0,0,1-.59,1.12,1.12,0,0,0,0-1.16L17.07,4.63A1.18,1.18,0,0,0,16,4Z"/></g></svg>
+        Уважаемый пользователь! <br> 
+        Во избежание мошенничества, после регистрации профиля компании будет произведена верификация.<br>
+        Спасибо за понимание!
+    </div>
+
+
+    <!-- <button id = "Поменять тип регистрации" onclick="change()" class="btn btn-lg btn-secondary btn--change-type-registration">Поменять тип регистрации</button> -->
+    
+    <div class="employer">
+        <form id="login" method="POST" action="/auth/registration/">    
+            {% csrf_token %}
+            {{ form_for_company.as_ul }}
+            <input type="hidden" name="whois" id="whois" value="2"> 
+            <input type="submit" name="log" id="log" value="Зарегистрироваться" class="btn btn-lg btn-secondary btn--registration">     
+            <br><br>    
+        </form>  
+    </div>
+    <div class="company">
+        <form id="login" method="POST" action="/auth/registration/">    
+            {% csrf_token %}
+            {{ form_for_candidate.as_ul }}
+            <input type="hidden" name="whois" id="whois" value="1"> 
+            <input type="submit" name="log" id="log" value="Зарегистрироваться" class="btn btn-lg btn-secondary btn--registration">     
+            <br><br>    
+        </form>    
+    </div>
+    
 </div>
-<div class="company">
-    <form id="login" method="POST" action="/auth/registration/">    
-        {% csrf_token %}
-        {{ form_for_candidate.as_ul }}
-        <input type="hidden" name="whois" id="whois" value="1"> 
-        <input type="submit" name="log" id="log" value="Зарегестрироваться">     
-        <br><br>    
-    </form>    
-</div>
+
+
 
 {% if status == 'ERROR' %}
     <h3>Произошла ошибка и мы вернули параметр как ерор</h3>
 {% else %}
-    <h3>Ошибки нет</h3>
+    <!-- <h3>Ошибки нет</h3> -->
 {% endif %}
 
 {% endblock %}

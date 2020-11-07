@@ -1,0 +1,45 @@
+{% extends "user_page/wrapper.html" %}
+
+{% block title %}
+
+    Все вакансии
+
+{% endblock %} 
+
+{% block main %}
+
+    <h2>Страница со всеми вакансиями</h2>
+    <h2>Текущий пользователь: {{username}} </h2>
+    
+    {% if username %}
+        <form action="/auth/logout">
+            <input type="submit" value="Выйти">
+        </form>
+        {% if status %}
+            <h4>company</h4>
+            
+            <a href="/test/all_vacancies"><button>Посмотреть все вакансии</button></a></form>
+            <a href="/test/my_vac"><button onlick="return false;">Посмотреть вакансии моей компании</button></a>
+            <a href="/test/create_vac"><button onlick="return false;">Создать вакансию</button></a>
+
+            <p>Список вакансий</p>
+            {% for vac in vacancies %}
+                <p>{{vac.name}} || {{vac.company}}</p>
+            {% endfor %}
+        {% else %}
+            <h4>user</h4>
+            <a href="/test/all_vacancies"><button onlick="return false;">Посмотреть вакансии</button></a>
+            <a href="/test/my_vac"><button onlick="return false;">Посмотреть мои вакансии</button></a>
+        {% endif %}
+    {% else %}
+        <form action="/auth/login">
+            <input type="submit" value="Войти">
+        </form>
+        <form action="/auth/registration">
+            <input type="submit" value="Зарегестрироваться">
+        </form>
+    {% endif %}
+
+
+
+{% endblock %} 

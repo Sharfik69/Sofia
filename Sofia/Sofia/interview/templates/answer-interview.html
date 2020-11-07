@@ -1,0 +1,29 @@
+{% extends "user_page/wrapper.html" %}
+
+{% load static %}
+
+{% block extrahead %}
+    <link type='text/css' rel='stylesheet' href={% static "/css/interview-style.css" %}> 
+    <script src={% static "/js/interview-functions.js" %}></script>
+{% endblock %}
+
+{% block interview %}
+<form name="interviewAnswer">
+    <input name="idCandidate" value="{{idCandidate}}" hidden>
+    <input name="idInterview" value="{{idInterview}}" hidden>
+    {% for question in questions %}
+        <h3>{{question.questionText}}</h3>
+        
+        <textarea type="text" name="answer[{{question.questionId}}]">{{question.answer}}</textarea>
+        <br>
+        {% for tags in question.tags %}
+            <input type="button" value="{{tags.text}}" onclick="interviewAnswerAddTag({{question.questionId}}, '{{tags.text}}')"></button>
+        {% endfor %}
+        <br>
+    {% endfor %}
+</form>
+<br>
+<button id="interview-save_answer" class='center-input'>Сохранить</button>
+    
+
+{% endblock %} 

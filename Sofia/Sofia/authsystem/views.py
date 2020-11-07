@@ -45,12 +45,10 @@ def sign_up(request):
                 password = new_user_form.cleaned_data['password2'])
             auth.login(request, new_user)
             if whois == '1':
-                print('228')
                 empl = Candidate.create(new_user, request.POST.get('phone', ''),
                 request.POST.get('addition_contacts', ''), request.POST.get('description', ''), request.POST.get('cv', ''))
                 empl.save()
             else:
-                print('322')
                 comp = Company.create(new_user, request.POST.get('name_company', ''), request.POST.get('FIO_CEO', ''),
                     request.POST.get('Phone_CEO', ''), request.POST.get('Email_CEO', ''), request.POST.get('FIO_Contact', ''), request.POST.get('Phone_Contact', ''), 
                     request.POST.get('Email_Contact', ''),
