@@ -17,16 +17,16 @@ $(document).ready(function() {
                         '<label for="ansl' + ln + '">Правильный ответ?</label></div>';
         }
         console.log(div_str);
-        $(".collection").append('<div id="quest" style="margin:15px" class="col-md-2">'+
+        $(".collection").append('<div id="quest" style="margin:15px; width: 100%; text-align: center;">'+
         '<hr><h2>Вопрос</h2>'+
         '<input type="file" id="selectedFile' + countCol + '" style="display: none;">'+
-        '<input type="button" class="btn btn-lg btn-secondary" id="selectedFileBtn' + countCol + '" value="Загрузить картинку..." onclick="document.getElementById(\'selectedFile' + countCol + '\').click();" >'+
+        '<input type="button" class="btn btn-lg btn-secondary" id="selectedFileBtn' + countCol + '" value="Загрузить картинку..." style="margin: 10px" onclick="document.getElementById(\'selectedFile' + countCol + '\').click();" >'+
         '<textarea id="quest' + countCol + '" class="interview--textarea">' + $('input#exist_quest').eq(i).val() + '</textarea>'+
         '<br><h2>Ответ</h2>'+
         '<div id="btnAns' + countCol + '">'+
         div_str+
-        '</div><input id="' + countCol + '" type="button" class="btn btn-lg btn-secondary" value="Добавить ответ" onclick="addRow(this)"><br>'+
-        '<input id="dc' + countCol + '" type="button" class="btn btn-lg btn-secondary" value="Удалить вопрос" id="DeleteCol" onclick=delColumn(this)><br></div>');
+        '</div><input id="' + countCol + '" type="button" class="btn btn-lg btn-secondary" value="Добавить ответ" onclick="addRow(this)" style="margin: 10px"><br>'+
+        '<input id="dc' + countCol + '" type="button" class="btn btn-lg btn-secondary" value="Удалить вопрос" id="DeleteCol" onclick=delColumn(this) style="margin: 10px"><br></div>');
         countCol++;
     }
 });
@@ -70,7 +70,7 @@ function addColumn(){
     if(!$('input#savebtn').is(":visible")){
         $('input#savebtn').show();
     }
-    $(".collection").append('<div id="quest" style="margin:15px" class="col-md-3">'+
+    $(".collection").append('<div id="quest" style="margin:15px; width: 100%; text-align: center;">'+
         '<hr><h2>Вопрос</h2>'+
         '<input type="file" id="selectedFile' + countCol + '" style="display: none;">'+
         '<input type="button" class="btn btn-lg btn-secondary" id="selectedFileBtn' + countCol + '" value="Загрузить картинку..." onclick="document.getElementById(\'selectedFile' + countCol + '\').click();" style="margin: 10px">'+

@@ -129,7 +129,6 @@ function submitData(id_test, id_vacancy, order){
       type: "POST",
       url: "/q_test/cd_post/" + id_test + "",
       data: fd,
-      dataType:'blob',
       contentType: false,
       processData: false,
     }).done(function (result){
