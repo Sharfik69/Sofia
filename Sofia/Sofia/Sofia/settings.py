@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'authsystem',
     'vacancy',
     'open_form',
-    'test_system'
+    'test_system',
+    'tests'
 ]
 
 MIDDLEWARE = [
