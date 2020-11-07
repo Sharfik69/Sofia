@@ -48,6 +48,7 @@ def sign_up(request):
                 password = new_user_form.cleaned_data['password2'])
             auth.login(request, new_user)
             files = request.FILES
+            file_ = None
             if whois == '1':
                 empl = Candidate.create(new_user, request.POST.get('phone', ''),
                 request.POST.get('addition_contacts', ''), request.POST.get('description', ''), file_)

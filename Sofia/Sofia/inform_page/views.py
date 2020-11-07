@@ -13,13 +13,14 @@ def index(request):
         d['username'] = auth.get_user(request).username
         check = False
         try:
-            d['status'] = Candidate.objects.get(user=request.user.id).get_status_company()
+            d['status'] = Candidate.objects.get(user=request.user.id)
             check = True
+            d['status'] = False
         except Exception:
             d['status'] = 'Error'
         if not check:
             try:
-                d['status'] = Company.objects.get(user=request.user.id).get_status_company()
+                d['status'] = Company.objects.get(user=request.user.id)
             except Exception:
                 d['status'] = False
     

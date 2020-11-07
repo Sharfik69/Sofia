@@ -12,7 +12,10 @@ def ret_info_user(request):
     d = {}
     check = False
     if not request.user.is_anonymous:
-        x = User.objects.get(id=request.user.id)
+        try:
+            x = User.objects.get(id=request.user.id)
+        except Exception:
+            x = None
         
         try:
             d['status'] = Candidate.objects.get(user=x)
@@ -39,15 +42,21 @@ def all_vacancies(request):
 
 def my_vac(request):
     d = ret_info_user(request)
-    usr = User.objects.get(id=request.user.id)
-    x = Vacancy.objects.filter(company=Company.objects.get(user=usr))
+    try:
+        usr = User.objects.get(id=request.user.id)
+        x = Vacancy.objects.filter(company=Company.objects.get(user=usr))
+    except Exception:
+        usr, x = None, None
     d['vacancies'] = x
     return render(request, 'vacancies_pages/my_vac.html', d)
 
 def create_vac(request):
     d = ret_info_user(request)
-    usr = User.objects.get(id=request.user.id)
-    x = Vacancy.objects.filter(company=Company.objects.get(user=usr))
+    try:
+        usr = User.objects.get(id=request.user.id)
+        x = Vacancy.objects.filter(company=Company.objects.get(user=usr))
+    except Exception:
+        x, usr = None, None
     d['vacancies'] = x
     d['forms'] = vacancy_form
 
@@ -55,8 +64,11 @@ def create_vac(request):
 
 def add_new_vac(request):
     d = ret_info_user(request)
-    usr = User.objects.get(id=request.user.id)
-    x = Company.objects.get(user=usr)
+    try:
+        usr = User.objects.get(id=request.user.id)
+        x = Company.objects.get(user=usr)
+    except Exception:
+        usr, x = None, None
     d['vacancies'] = x
     dolzhnost = request.POST.get('name', '')
     description = request.POST.get('description', '')
