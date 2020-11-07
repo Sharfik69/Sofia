@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authsystem',
+    'test_system',
     'vacancy',
     'tests',
-    'test_system',
 ]
 
 MIDDLEWARE = [
