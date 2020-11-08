@@ -24,3 +24,6 @@
 
         python3 manage.py runserver
         
+
+
+На время тестирования главная страница: https://localhost:8000/test/
