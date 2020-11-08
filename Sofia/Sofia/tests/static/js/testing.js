@@ -37,6 +37,10 @@ $(document).ready(function() {
     console.log(answer);
     elem.eq(index).show("fast");
     $('input#backbtn').hide();
+    if(len_quest == 1){
+        $('input#nextbtn').hide();
+        $('input#submitData').show();
+    }
 
     $('input#nextbtn').click(function (){
         progressStep(1, Math.round(100 / len_quest));
@@ -125,11 +129,11 @@ function submitData(id_test, id_vacancy, order){
       type: "POST",
       url: "/q_test/cd_post/" + id_test + "",
       data: fd,
-      dataType:'blob',
       contentType: false,
       processData: false,
     }).done(function (result){
-
+        console.log(result)
+        alert('Вы прошли тестю Ваш результат:' + result['ans']);
     });
     $('#startConfetti').trigger('click');
 }
