@@ -28,7 +28,7 @@
                     {% endif %}
                     <li class="main-menu--top-li">
                         <form action="/auth/logout">
-                            <input type="submit" value="Выйти">
+                            <input type="submit" value="Выйти" style="background-color: rgb(38, 38, 38); border: 0; color: rgb(150, 150, 150);">
                         </form>
                     </li>
                 </ul>
@@ -37,9 +37,12 @@
                 <div class="container">
                     <h1 class="display-3">Привет, {{username}}</h1>
                     <p>
-                        Тут много буков о том какой чудесный и замечательный у нас сайт и какая крутая команда разработчиков. Тут много буков о том какой чудесный и замечательный у нас сайт и какая крутая команда разработчиков. Тут много буков о том какой чудесный и замечательный у нас сайт и какая крутая команда разработчиков.
+                        Мы очень рады, что вы выбрали нас! 
                     </p>
-                    <p><a class="btn btn-primary btn-lg" href="#" role="button">Уйти отсюдова >></a></p>
+                    <p>
+                        Вы можете больше узнать о приложении и научиться эффективно его использовать
+                    </p>
+                    <p><a class="btn btn-primary btn-lg" href="https://youtu.be/gQUM3jzW0ZQ" role="button">Узнать больше</a></p>
 <!--                    <h2>Контент снизу будет виден только авторизированному пользователю</h2>-->
 
 <!--                    <h2>Текущий пользователь: {{username}} </h2>-->
@@ -53,37 +56,37 @@
                         <div class="col-md-4">
                             <h2>Просмотр всех вакансий</h2>
                             <p>Здесь будут показаны все вакансии, которые размещены на нашем сервисе</p>
-                            <p><a class="btn btn-secondary" href="/test/all_vacancies/" role="button">View details »</a></p>
+                            <p><a class="btn btn-secondary" href="/test/all_vacancies/" role="button">Открыть</a></p>
                         </div>
                         {% if status == 2 %}
                             <div class="col-md-4">
                                 <h2>Вакансии моей компании</h2>
                                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                                <p><a class="btn btn-secondary" href="/test/my_vac/" role="button">View details »</a></p>
+                                <p><a class="btn btn-secondary" href="/test/my_vac/" role="button">Открыть</a></p>
                             </div>
                             <div class="col-md-4">
                                 <h2>Добавить новую вакансию</h2>
                                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                                <p><a class="btn btn-secondary" href="/test/create_vac/" role="button">View details »</a></p>
+                                <p><a class="btn btn-secondary" href="/test/create_vac/" role="button">Открыть</a></p>
                             </div>
                         {% endif %}
                         {% if status == 1 %}
                         <div class="col-md-4">
                             <h2>Мои вакансии</h2>
                             <p>Здесь показан список ваших вакансий</p>
-                            <p><a class="btn btn-secondary" href="/test/my_vac/" role="button">View details »</a></p>
+                            <p><a class="btn btn-secondary" href="/test/my_vac/" role="button">Открыть</a></p>
                         </div>
                         {% endif %}
                     {% else %}
                         <div class="col-md-6">
                             <h2>Просмотр всех вакансий</h2>
                             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                            <p><a class="btn btn-secondary" href="/test/all_vacancies/" role="button">View details »</a></p>
+                            <p><a class="btn btn-secondary" href="/test/all_vacancies/" role="button">Открыть</a></p>
                         </div>
                         <div class="col-md-6">
                             <h2>Мои вакансии</h2>
                             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                            <p><a class="btn btn-secondary" href="/test/my_vac/" role="button">View details »</a></p>
+                            <p><a class="btn btn-secondary" href="/test/my_vac/" role="button">Открыть</a></p>
                         </div>
                     {% endif %}
                 </div>
