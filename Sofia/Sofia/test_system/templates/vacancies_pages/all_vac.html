@@ -22,7 +22,7 @@
         <ul class="main-menu--top-ul">
             <li class="main-menu--top-li"><a href="/test/all_vacancies/" class="tag--a">Все вакансии</a></li>
             <li class="main-menu--top-li"><a href="/test/my_vac/" class="tag--a">Мои вакансии</a></li>
-            {% if status %}
+            {% if status == 2 %}
             <li class="main-menu--top-li"><a href="/test/create_vac/" class="tag--a">Создать вакансию</a></li>
             {% endif %}
             <li class="main-menu--top-li">
@@ -45,7 +45,7 @@
     </div>
     <div class="container main-content">
         {% if username %}
-            {% if status %}
+            {% if status == 2 %}
                 <h2>Список вакансий</h2>
 
                 {% for vac in vacancies %}
@@ -62,13 +62,38 @@
                         </a>
                     {% endif %}
                 {% endfor %}
-
-            {% else %}
+            {% elif status == 1 %}
                 <h4>user</h4>
                 <a href="/test/all_vacancies"><button onlick="return false;">Посмотреть вакансии</button></a>
                 <a href="/test/my_vac"><button onlick="return false;">Посмотреть мои вакансии</button></a>
-            {% endif %}
-        {% else %}
+  
+        
+                {% for vac in vacancies %}
+                        <div class="block-vacancy--a">
+                            <div class="vacancy--main-div">
+                                <h2>{{vac.name}}</h2>
+                                <h4>{{vac.company.user.username}}</h4>
+                                <br>
+                                <p>Требования к кандидату: <br>{{vac.description}}</p>
+
+                                <p>Заработная плата: <br>{{vac.salary}}</p>
+                            </div>
+                        </div>
+                        <button onclick="add_to_my_courses({{vac.pk}})">Записаться на вакансию</button>
+                {% endfor %}
+            <!-- {% for vac in vacancies %}
+                <p>{{vac.name}} || {{vac.company}} || {{vac.pk}}</p>
+                <button onclick="add_to_my_courses({{vac.pk}})">Записаться на вакансию</button>
+            {% endfor %} -->
+                <script>
+                    function add_to_my_courses(id_cours){
+                        $.post('{% url 'add_vac_to_usr' %}', {'id_usr': {{user_.pk}}, 'vac_id': id_cours, 'csrfmiddlewaretoken': '{{ csrf_token }}'})
+                            .done(function(response) { 
+                                alert('Вы подали свою заявку на вакансию');
+                            });
+                    }
+                </script>
+            {% else %}
             <form action="/auth/login">
                 <input type="submit" value="Войти">
             </form>
@@ -76,7 +101,7 @@
                 <input type="submit" value="Зарегbстрироваться">
             </form>
         {% endif %}
-        
+        {% endif %}
     </div>
 </div>
 
@@ -85,10 +110,6 @@
         ©vsemi_lubimaya_komanda, 2020
     </footer>
 
-
-    
-    
-    
 
 
 

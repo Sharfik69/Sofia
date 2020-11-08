@@ -42,6 +42,11 @@ class Vacancy(models.Model):
         blank=True,
         verbose_name='Теги'
     )
+    candidates = models.ManyToManyField(
+        Candidate,
+        blank=True,
+        verbose_name='Кандидаты'
+    )
     @classmethod
     def create(cls, company, name, description, salary):
         vacan = cls(company=company, name=name, description=description, salary=salary)
@@ -52,8 +57,8 @@ class Vacancy(models.Model):
         verbose_name_plural = 'Вакансии'
 
 
-class users_vacancy(models.Model):
-    vacancy = models.ForeignKey(Vacancy,verbose_name = 'Вакансия юзера',
-        null = False,
-        on_delete = models.CASCADE)
-    candidate = models.ForeignKey(Candidate, verbose_name='Какой юзер', null=False, on_delete = models.CASCADE)
+# class users_vacancy(models.Model):
+#     vacancy = models.ForeignKey(Vacancy,verbose_name = 'Вакансия юзера',
+#         null = False,
+#         on_delete = models.CASCADE)
+#     candidate = models.ForeignKey(Candidate, verbose_name='Какой юзер', null=False, on_delete = models.CASCADE)

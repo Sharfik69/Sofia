@@ -45,7 +45,7 @@
     </div>
     <div class="container main-content">
         {% if username %}
-            {% if status %}
+            {% if status == 2%}
                 <h2>Список вакансий</h2>
 
                 {% for vac in vacancies %}
@@ -63,10 +63,26 @@
                     {% endif %}
                 {% endfor %}
 
-            {% else %}
+            {% elif status == 1 %}
                 <h4>user</h4>
-                <a href="/test/all_vacancies"><button onlick="return false;">Посмотреть вакансии</button></a>
-                <a href="/test/my_vac"><button onlick="return false;">Посмотреть мои вакансии</button></a>
+                {% for vac in vacancies %}
+                    <div class="block-vacancy--a">
+                        <div class="vacancy--main-div">
+                            <h2>{{vac.name}}</h2>
+                            <h4>{{vac.company.user.username}}</h4>
+                            <br>
+                            <p>Требования к кандидату: <br>{{vac.description}}</p>
+
+                            <p>Заработная плата: <br>{{vac.salary}}</p>
+                        </div>
+                    </div>
+                    <a href="/test/show_stage_to_user/{{vac.pk}}"><button>Пройти этап собеседования</button></a>
+                {% endfor %}
+                <script>
+                    function add_to_my_courses(vac_pk){
+                        
+                    }
+                </script>
             {% endif %}
         {% else %}
             <form action="/auth/login">
