@@ -17,8 +17,10 @@
         (подробнее https://python-scripts.com/virtualenv )
 
 3. Настроить окружение: 
+
         pip3 install -r requirements.txt
 
 4. Запустить сервер: 
+
         python3 manage.py runserver
         
